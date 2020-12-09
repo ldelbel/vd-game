@@ -1,0 +1,9 @@
+{
+  "name": "virus-defense-game",
+  "version": "1.0.0",
+  "description": "Shooter game simulating body defenses against viruses",
+  "repository": "git@github.com:ldelbel/vd-game.git",
+  "author": "ldelbel <lucdelbel@gmail.com>",
+  "license": "MIT",
+  "private": true
+}
