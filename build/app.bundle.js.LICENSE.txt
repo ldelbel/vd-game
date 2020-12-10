@@ -27,6 +27,13 @@
  */
 
 /**
+ * @author       Patrick Sletvold
+ * @author       jdotr <https://github.com/jdotrjs>
+ * @author       Richard Davey
+ * @license      {@link https://github.com/16patsle/phaser3-weapon-plugin/blob/master/LICENSE|MIT License}
+ */
+
+/**
  * @author       Richard Davey <rich@photonstorm.com>
  * @author       @samme
  * @copyright    2020 Photon Storm Ltd.

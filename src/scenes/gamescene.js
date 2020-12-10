@@ -1,3 +1,4 @@
+
 let gameState = {};
 
 export class GameScene extends Phaser.Scene {
@@ -7,10 +8,17 @@ export class GameScene extends Phaser.Scene {
     this.load.image('lympho', '../assets/lymphocite.png');
     this.load.image('red-cell', '../assets/red-cell.png');
     this.load.image('white-cell', '../assets/white-cell.png');
-    this.load.image('antibody1', '../assets/antibody1.png')
+    this.load.image('antibody1', '../assets/antibody1.png');
   }
   
   create() {
+
+    this.plugins.installScenePlugin(
+      'WeaponPlugin',
+      WeaponPlugin.WeaponPlugin,
+      'weapons',
+      this
+  );
     // background
     const background = this.add.image(0, -40, 'background').setScale(0.367);
     background.setOrigin(0,0);
@@ -20,9 +28,6 @@ export class GameScene extends Phaser.Scene {
     const whiteCells = this.physics.add.group();
     gameState.lympho = this.add.image(100, 200, 'lympho').setScale(0.25);
     gameState.cursors = this.input.keyboard.createCursorKeys();
-    // gameState.antibodies = this.physics.add.group();
-
-    console.log(this)
 
     // background animations
     function whiteCellCreate() {
@@ -53,11 +58,11 @@ export class GameScene extends Phaser.Scene {
     });    
 
     // firing animation
-    gameState.antibody = this.sys.game.add.weapon(30, 'antibody1')
-    gameState.antibody.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
-    gameState.antibody.bulletAngleOffset = 90;
+    gameState.antibody = this.add.weapon(30, 'antibody1')
+    // gameState.antibody.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
+    gameState.antibody.bulletAngleOffset = 180;
     gameState.antibody.bulletSpeed = 400;
-    gameState.antibody.fireRate = 60;
+    gameState.antibody.fireRate = 400;
     gameState.antibody.trackSprite(gameState.lympho,0,0)
     // gameState.fireAntibody = function antibodyCreate() {
     //   const xCoord = gameState.lympho.x;

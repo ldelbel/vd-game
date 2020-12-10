@@ -1,6 +1,6 @@
 import 'phaser';
-
 import { GameScene } from './scenes/gamescene';
+import 'phaser3-weapon-plugin/dist/WeaponPlugin.js'
 
 const config = {
   type: Phaser.AUTO,
