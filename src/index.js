@@ -1,11 +1,24 @@
 import 'phaser';
 
-import { SimpleScene } from './scenes/simple-scene';
+import { GameScene } from './scenes/gamescene';
 
-const gameConfig = {
-  width: 680,
-  height: 400,
-  scene: SimpleScene
+const config = {
+  type: Phaser.AUTO,
+  scale: {
+    mode: Phaser.Scale.FIT,
+    parent: 'phaser-example',
+    autoCenter: Phaser.Scale.CENTER_BOTH,
+    width: 1100,
+    height: 600
+  },
+  physics: {
+    default: 'arcade',
+    arcade: {
+      gravity: { x: -200 },
+      enableBody: true,
+    }
+  },
+  scene: GameScene
 };
 
-new Phaser.Game(gameConfig);
+new Phaser.Game(config);

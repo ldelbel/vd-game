@@ -29,6 +29,7 @@ module.exports = {
 
   devServer: {
     contentBase: path.resolve(__dirname, 'build'),
+    open: true
   },
 
   plugins: [
