@@ -9,6 +9,7 @@ export class GameScene extends Phaser.Scene {
     this.load.image('red-cell', '../assets/red-cell.png');
     this.load.image('white-cell', '../assets/white-cell.png');
     this.load.image('antibody1', '../assets/antibody1.png');
+    this.load.image('antibody2', '../assets/antibody2.png');
     this.load.image('virus1', '../assets/virus-1.png');
     this.load.image('virus2', '../assets/virus-2.png');
   }
@@ -92,7 +93,7 @@ export class GameScene extends Phaser.Scene {
 
     gameState.currentAntibody = gameState.antibody1;
 
-    function switchAntibody() {
+    gameState.switchAntibody = function() {
       if(gameState.currentAntibody == gameState.antibody1) {
         gameState.currentAntibody = gameState.antibody2;
       } else if(gameState.currentAntibody == gameState.antibody2){
@@ -137,7 +138,7 @@ export class GameScene extends Phaser.Scene {
       }
     }
 
-
+    console.log(Phaser.Input)
   }
 
   update() {
@@ -153,13 +154,16 @@ export class GameScene extends Phaser.Scene {
       if(gameState.cursors.down.isDown) {
         gameState.lympho.y += 15;
       } 
-       if(gameState.cursors.space.isDown) {
+      if(gameState.cursors.space.isDown) {
         if(gameState.currentAntibody == gameState.antibody1){
           gameState.antibody1.fire();
         } else if(gameState.currentAntibody == gameState.antibody2) {
           gameState.antibody2.fire();
         }
-
+      }
+      if(Phaser.Input.Keyboard.JustDown(gameState.cursors.shift)){
+        console.log('working')
+        gameState.switchAntibody()
       }
     }
 }
