@@ -4,14 +4,14 @@ let gameState = {};
 export class GameScene extends Phaser.Scene {
 
   preload() {
-    this.load.image('background', '../assets/one-path-background.png');
-    this.load.image('lympho', '../assets/lymphocite.png');
+    this.load.image('background', '../assets/background-min.png');
+    this.load.spritesheet('lympho', '../assets/lymphocyte2.png', {frameWidth: 170, frameHeight: 177});
     this.load.image('red-cell', '../assets/red-cell.png');
     this.load.image('white-cell', '../assets/white-cell.png');
     this.load.image('antibody1', '../assets/antibody1.png');
     this.load.image('antibody2', '../assets/antibody2.png');
-    this.load.image('virus1', '../assets/virus-1.png');
-    this.load.image('virus2', '../assets/virus-2.png');
+    this.load.image('virus1', '../assets/virus-blue-1.png');
+    this.load.image('virus2', '../assets/virus-yellow-1.png');
   }
   
   create() {
@@ -28,15 +28,27 @@ export class GameScene extends Phaser.Scene {
     gameState.gameHeight = this.game.config.height;
 
     // background
-    const background = this.add.image(0, -40, 'background').setScale(0.367);
+    const background = this.add.image(0, -70, 'background').setScale(0.367);
     background.setOrigin(0,0);
     background.depth = -2;
 
     // create elements
     const redCells = this.physics.add.group();
     const whiteCells = this.physics.add.group();
-    gameState.lympho = this.add.image(100, 200, 'lympho').setScale(0.25);
+    gameState.lympho = this.physics.add.sprite(170, 177, 'lympho').setScale(0.6);
+    gameState.lympho.body.setAllowGravity(false);
     gameState.cursors = this.input.keyboard.createCursorKeys();
+    console.log(gameState.lympho)
+    this.anims.create({
+      key: 'lymphoAnimation',
+      frames: this.anims.generateFrameNumbers('lympho', { start: 0, end: 20 }),
+      frameRate: 5,
+      repeat: -1
+    });
+
+    console.log(gameState.lympho)
+    gameState.lympho.anims.play('lymphoAnimation',true)
+
 
     // background animations
     function whiteCellCreate() {
@@ -106,11 +118,12 @@ export class GameScene extends Phaser.Scene {
     gameState.virus2 = this.physics.add.group();
 
 
-    let enemy1 =  gameState.virus1.create(gameState.gameWidth - 100, gameState.gameHeight/2 - 30, 'virus1').setScale(0.3)
+    let enemy1 =  gameState.virus1.create(gameState.gameWidth - 100, gameState.gameHeight/2 - 30, 'virus1').setScale(0.2);
     enemy1.life = 30;
     enemy1.body.allowGravity = false;
     enemy1.setImmovable(true);
-    let enemy2 =  gameState.virus2.create(gameState.gameWidth - 100, gameState.gameHeight/2 + 40, 'virus2').setScale(0.3)
+    enemy1.setVelocity(-80,50);
+    let enemy2 =  gameState.virus2.create(gameState.gameWidth - 100, gameState.gameHeight/2 + 40, 'virus2').setScale(0.2);
     enemy2.life = 30;
     enemy2.body.allowGravity = false;
     enemy2.setImmovable(true);
