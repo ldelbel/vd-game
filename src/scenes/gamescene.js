@@ -9,8 +9,8 @@ export class GameScene extends Phaser.Scene {
     this.load.spritesheet('lympho1', '../assets/lymphocyte2.png', {frameWidth: 176, frameHeight: 177}, 5);
     this.load.image('red-cell', '../assets/red-cell.png');
     this.load.image('white-cell', '../assets/white-cell.png');
-    this.load.image('antibody1', '../assets/antibody1.png');
-    this.load.image('antibody2', '../assets/antibody2.png');
+    this.load.image('antibody1', '../assets/antibody1-small.png');
+    this.load.image('antibody2', '../assets/antibody2-small.png');
     this.load.image('virus1', '../assets/virus-blue-1.png');
     this.load.image('virus2', '../assets/virus-yellow-1.png');
   }
@@ -23,7 +23,7 @@ export class GameScene extends Phaser.Scene {
       'weapons',
       this
   );
-
+    this.physics.world.setBounds(0,100,950,450)
     // Defining important variables
     gameState.gameWidth = this.game.config.width;
     gameState.gameHeight = this.game.config.height;
@@ -49,12 +49,13 @@ export class GameScene extends Phaser.Scene {
       frameRate: 8,
       repeat: -1
     });
-
     gameState.lympho.anims.play('lymphoAnimation',true)
-    const lines = this.physics.add.staticGroup();
+
+
+    gameState.lines = this.physics.add.staticGroup();
     const linePositions = [{x: 0, y: 86},{x: 0, y: 552}];
     linePositions.forEach( line => {
-      lines.create(line.x,line.y,'line').setScale(0.367).setOrigin(0,0).refreshBody();
+      gameState.lines.create(line.x,line.y,'line').setScale(0.367).setOrigin(0,0).refreshBody();
     })
 
     // background animations
@@ -77,40 +78,32 @@ export class GameScene extends Phaser.Scene {
       cell.depth = -1;
     };
     const redCellLoop = this.time.addEvent({
-      delay: 200,
+      delay: 300,
       callback: redCellCreate,
       callbackScope: this,
       loop: true
     });
     const whiteCellLoop = this.time.addEvent({
-      delay: 300,
+      delay: 400,
       callback: whiteCellCreate,
       callbackScope: this,
       loop: true
     });    
 
     // firing antibodies    
-    gameState.antibody1 = this.add.weapon(30, 'antibody1');
+    gameState.antibody1 = this.add.weapon(-1, 'antibody1');
     gameState.antibody1.bulletAngleOffset = 90;
     gameState.antibody1.bulletSpeed = 400;
     gameState.antibody1.fireAngle = 0;
     gameState.antibody1.fireRate = 400;
     gameState.antibody1.trackSprite(gameState.lympho,0,0);
-    gameState.antibody1.bullets.children.entries.forEach( bullet => {
-      bullet.scale = 0.1
-      bullet.body.allowGravity = false
-    })
 
-    gameState.antibody2 = this.add.weapon(30, 'antibody2');
+    gameState.antibody2 = this.add.weapon(-1, 'antibody2');
     gameState.antibody2.bulletAngleOffset = 90;
     gameState.antibody2.bulletSpeed = 400;
     gameState.antibody2.fireAngle = 0;
     gameState.antibody2.fireRate = 400;
     gameState.antibody2.trackSprite(gameState.lympho,0,0);
-    gameState.antibody2.bullets.children.entries.forEach( bullet => {
-      bullet.scale = 0.1
-      bullet.body.allowGravity = false
-    })
 
     gameState.currentAntibody = gameState.antibody1;
 
@@ -126,30 +119,50 @@ export class GameScene extends Phaser.Scene {
     gameState.virus1 = this.physics.add.group();
     gameState.virus2 = this.physics.add.group();
 
-
     let enemy1 =  gameState.virus1.create(gameState.gameWidth - 100, gameState.gameHeight/2 - 30, 'virus1').setScale(0.2);
     enemy1.life = 30;
-    enemy1.body.allowGravity = false;
-    enemy1.setImmovable(true);
-    enemy1.setVelocity(-80,50);
+    enemy1.setVelocity(-80,-50);
+    enemy1.setBounce(1,1)
+    enemy1.setMass(100000)
     let enemy2 =  gameState.virus2.create(gameState.gameWidth - 100, gameState.gameHeight/2 + 40, 'virus2').setScale(0.2);
     enemy2.life = 30;
-    enemy2.body.allowGravity = false;
-    enemy2.setImmovable(true);
+
+    function virusCreate1() {
+      for(let i = 0; i < 3; i++) {
+        let random = Math.random() - Math.random();
+        let virus1 = gameState.virus1.create(gameState.gameWidth, 150 + Math.random() * 300, 'virus1').setScale(0.2);
+        virus1.setVelocity(-80, 100 * random);
+        virus1.life = 30;
+        virus1.setBounce(1,1)
+        virus1.setMass(100000)
+        // virus1.enableBody;
+      }
+    }
+
+    const virus1Loop = this.time.addEvent({
+      delay: 3000,
+      callback: virusCreate1,
+      callbackScope: this,
+      loop: true
+    });
+
 
 
     this.physics.add.collider(gameState.virus1,  gameState.antibody1.bullets, hitVirusHard, null, this);
     this.physics.add.collider(gameState.virus2,  gameState.antibody1.bullets, hitVirusSoft, null, this);
     this.physics.add.collider(gameState.virus1,  gameState.antibody2.bullets, hitVirusSoft, null, this);
     this.physics.add.collider(gameState.virus2,  gameState.antibody2.bullets, hitVirusHard, null, this);
-     
+  
     
     function hitVirusHard(antibody, virus) {
       antibody.destroy();
       virus.life -= 10;
+      console.log(virus)
+      virus.setVelocityX(-50);
       if(virus.life <= 0){
         virus.destroy()
       }
+
     }
 
     function hitVirusSoft(antibody, virus) {
@@ -161,10 +174,11 @@ export class GameScene extends Phaser.Scene {
     }
 
 
+
     // Colliders
-    this.physics.add.collider(lines, gameState.lympho, null, null, this )
-    this.physics.add.collider(gameState.virus1, lines)
-    this.physics.add.collider(gameState.virus2, lines)
+    this.physics.add.collider(gameState.lympho, gameState.lines)
+    this.physics.add.collider(gameState.virus1, gameState.lines)
+    this.physics.add.collider(gameState.virus2, gameState.lines)
 
   }
 
@@ -182,14 +196,15 @@ export class GameScene extends Phaser.Scene {
         gameState.lympho.y += 15;
       } 
       if(gameState.cursors.space.isDown) {
+
         if(gameState.currentAntibody == gameState.antibody1){
           gameState.antibody1.fire();
         } else if(gameState.currentAntibody == gameState.antibody2) {
           gameState.antibody2.fire();
         }
+        
       }
       if(Phaser.Input.Keyboard.JustDown(gameState.cursors.shift)){
-        console.log('working')
         gameState.switchAntibody()
       }
     }
