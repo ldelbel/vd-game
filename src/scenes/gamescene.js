@@ -4,8 +4,9 @@ let gameState = {};
 export class GameScene extends Phaser.Scene {
 
   preload() {
-    this.load.image('background', '../assets/background-min.png');
-    this.load.spritesheet('lympho', '../assets/lymphocyte2.png', {frameWidth: 170, frameHeight: 177});
+    this.load.image('background', '../assets/background-new.png');
+    this.load.image('line', '../assets/line.png');
+    this.load.spritesheet('lympho1', '../assets/lymphocyte2.png', {frameWidth: 176, frameHeight: 177}, 5);
     this.load.image('red-cell', '../assets/red-cell.png');
     this.load.image('white-cell', '../assets/white-cell.png');
     this.load.image('antibody1', '../assets/antibody1.png');
@@ -28,47 +29,55 @@ export class GameScene extends Phaser.Scene {
     gameState.gameHeight = this.game.config.height;
 
     // background
-    const background = this.add.image(0, -70, 'background').setScale(0.367);
+    const background = this.add.image(0, -50, 'background').setScale(0.367);
+    
     background.setOrigin(0,0);
     background.depth = -2;
+
+    
+    
 
     // create elements
     const redCells = this.physics.add.group();
     const whiteCells = this.physics.add.group();
-    gameState.lympho = this.physics.add.sprite(170, 177, 'lympho').setScale(0.6);
-    gameState.lympho.body.setAllowGravity(false);
+    gameState.lympho = this.physics.add.sprite(200, 200, 'lympho1').setScale(0.6);
+    gameState.lympho.setCollideWorldBounds(true);
     gameState.cursors = this.input.keyboard.createCursorKeys();
-    console.log(gameState.lympho)
     this.anims.create({
       key: 'lymphoAnimation',
-      frames: this.anims.generateFrameNumbers('lympho', { start: 0, end: 20 }),
-      frameRate: 5,
+      frames: this.anims.generateFrameNumbers('lympho1', { start: 0, end: 5 }),
+      frameRate: 8,
       repeat: -1
     });
 
-    console.log(gameState.lympho)
     gameState.lympho.anims.play('lymphoAnimation',true)
-
+    const lines = this.physics.add.staticGroup();
+    const linePositions = [{x: 0, y: 86},{x: 0, y: 552}];
+    linePositions.forEach( line => {
+      lines.create(line.x,line.y,'line').setScale(0.367).setOrigin(0,0).refreshBody();
+    })
 
     // background animations
     function whiteCellCreate() {
-      const yCoord = Math.random() * 320 + 160;
+      const yCoord = Math.random() * 380 + 140;
       const cell = whiteCells.create(1200, yCoord,'white-cell');
       cell.setScale(0.015);
       cell.alpha = 0.5;
-      cell.setVelocityX(-200);
+      cell.setVelocityX(-600);
+      cell.body.setAllowGravity(false)
       cell.depth = -1;
     };
     function redCellCreate() {
-      const yCoord = Math.random() * 320 + 160;
+      const yCoord = Math.random() * 380 + 140;
       const cell = redCells.create(1200, yCoord,'red-cell');
       cell.setScale(0.04);
       cell.alpha = 0.5;
-      cell.setVelocityX(-200);
+      cell.setVelocityX(-600);
+      cell.body.setAllowGravity(false)
       cell.depth = -1;
     };
     const redCellLoop = this.time.addEvent({
-      delay: 250,
+      delay: 200,
       callback: redCellCreate,
       callbackScope: this,
       loop: true
@@ -151,7 +160,12 @@ export class GameScene extends Phaser.Scene {
       }
     }
 
-    console.log(Phaser.Input)
+
+    // Colliders
+    this.physics.add.collider(lines, gameState.lympho, null, null, this )
+    this.physics.add.collider(gameState.virus1, lines)
+    this.physics.add.collider(gameState.virus2, lines)
+
   }
 
   update() {
