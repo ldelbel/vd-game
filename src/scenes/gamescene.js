@@ -12,7 +12,9 @@ export class GameScene extends Phaser.Scene {
     this.load.image('antibody1', '../assets/antibody1-small.png');
     this.load.image('antibody2', '../assets/antibody2-small.png');
     this.load.image('virus1', '../assets/virus-blue-1.png');
+    this.load.image('virus11', '../assets/virus-blue-2.png');
     this.load.image('virus2', '../assets/virus-yellow-1.png');
+    this.load.image('virus21', '../assets/virus-yellow-2.png');
   }
   
   create() {
@@ -128,20 +130,69 @@ export class GameScene extends Phaser.Scene {
     enemy2.life = 30;
 
     function virusCreate1() {
-      for(let i = 0; i < 3; i++) {
+      for(let i = 0; i < 2; i++) {
         let random = Math.random() - Math.random();
         let virus1 = gameState.virus1.create(gameState.gameWidth, 150 + Math.random() * 300, 'virus1').setScale(0.2);
         virus1.setVelocity(-80, 100 * random);
         virus1.life = 30;
         virus1.setBounce(1,1)
         virus1.setMass(100000)
-        // virus1.enableBody;
       }
     }
 
+    function virusCreate2() {
+      for(let i = 0; i < 2; i++) {
+        let random = Math.random() - Math.random();
+        let virus1 = gameState.virus2.create(gameState.gameWidth, 150 + Math.random() * 300, 'virus2').setScale(0.2);
+        virus1.setVelocity(-80, 100 * random);
+        virus1.life = 30;
+        virus1.setBounce(1,1)
+        virus1.setMass(100000)
+      }
+    }
+
+    function virusCreate11() {
+      let random = Math.random() - Math.random();
+      let virus1 = gameState.virus1.create(gameState.gameWidth, 150 + Math.random() * 300, 'virus11').setScale(0.4);
+      virus1.setVelocity(-80, 100 * random);
+      virus1.life = 80;
+      virus1.setBounce(1,1)
+      virus1.setMass(100000)
+    }
+
+    function virusCreate21() {
+      let random = Math.random() - Math.random();
+      let virus1 = gameState.virus2.create(gameState.gameWidth, 150 + Math.random() * 300, 'virus21').setScale(0.4);
+      virus1.setVelocity(-80, 100 * random);
+      virus1.life = 80;
+      virus1.setBounce(1,1)
+      virus1.setMass(100000)
+    }
+
     const virus1Loop = this.time.addEvent({
-      delay: 3000,
+      delay: 5000,
       callback: virusCreate1,
+      callbackScope: this,
+      loop: true
+    });
+
+    const virus2Loop = this.time.addEvent({
+      delay: 6000,
+      callback: virusCreate2,
+      callbackScope: this,
+      loop: true
+    });
+
+    const virus11Loop = this.time.addEvent({
+      delay: 15000,
+      callback: virusCreate11,
+      callbackScope: this,
+      loop: true
+    });
+
+    const virus21Loop = this.time.addEvent({
+      delay: 18000,
+      callback: virusCreate21,
       callbackScope: this,
       loop: true
     });
@@ -157,7 +208,6 @@ export class GameScene extends Phaser.Scene {
     function hitVirusHard(antibody, virus) {
       antibody.destroy();
       virus.life -= 10;
-      console.log(virus)
       virus.setVelocityX(-50);
       if(virus.life <= 0){
         virus.destroy()
@@ -168,6 +218,7 @@ export class GameScene extends Phaser.Scene {
     function hitVirusSoft(antibody, virus) {
       antibody.destroy();
       virus.life -= 5;
+      virus.setVelocityX(-50);
       if(virus.life <= 0){
         virus.destroy()
       }
