@@ -1,6 +1,7 @@
 import 'phaser';
 import { GameScene } from './scenes/gamescene';
-import 'phaser3-weapon-plugin/dist/WeaponPlugin.js'
+import 'phaser3-weapon-plugin/dist/WeaponPlugin.js';
+
 
 const config = {
   type: Phaser.AUTO,
@@ -15,7 +16,7 @@ const config = {
     default: 'arcade',
     arcade: {
      enableBody: true,
-     debug: true,
+     debug: false,
      gravity: 0
     }
   },

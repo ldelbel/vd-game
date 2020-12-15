@@ -13,6 +13,13 @@ export class GameScene extends Phaser.Scene {
 
   preload() {
     this.load.image('background', '../assets/background-new.png');
+    this.load.image('panel', '../assets/panel.png');
+    this.load.image('frame-life', '../assets/frame-life.png');
+    this.load.image('frame-energy', '../assets/frame-energy.png');
+    this.load.image('frame-gamma', '../assets/frame-gamma.png');
+    this.load.image('lifebar', '../assets/lifebar.png');
+    this.load.image('energybar', '../assets/energybar.png');
+    this.load.image('gammabar', '../assets/gammabar.png');
     this.load.image('line', '../assets/line.png');
     this.load.image('vertical-line', '../assets/vertical-line.png')
     this.load.spritesheet('lympho1', '../assets/lymphocyte2.png', {frameWidth: 176, frameHeight: 177}, 5);
@@ -34,21 +41,35 @@ export class GameScene extends Phaser.Scene {
       'weapons',
       this
   );
-    this.physics.world.setBounds(0,100,1050,450)
+
+    this.physics.world.setBounds(0,100,1050,450);
     // Defining important variables
     gameState.gameWidth = this.game.config.width;
     gameState.gameHeight = this.game.config.height;
+
+
+
 
     // background
     const background = this.add.image(0, -50, 'background').setScale(0.367);
     this.control = this.physics.add.staticGroup();
     let controlLine = this.control.create(-100, 100, 'vertical-line').setScale(0.16).setOrigin(0,0);
-    console.log(controlLine.body)
     controlLine.refreshBody()
-    console.log(controlLine.body)
     background.setOrigin(0,0);
     background.depth = -2;
    
+
+    gameState.lines = this.physics.add.staticGroup();
+    const linePositions = [{x: 0, y: 86},{x: 0, y: 552}];
+    linePositions.forEach( line => {
+      gameState.lines.create(line.x,line.y,'line').setScale(0.367).setOrigin(0,0).refreshBody();
+    })
+
+    const panel = this.add.image(0,0, 'panel').setOrigin(0,0).setScale(0.45);
+    const frameLife = this.add.image(189, 10.5, 'frame-life').setOrigin(0,0).setScale(0.445);
+    const frameEnergy = this.add.image(100.5,60, 'frame-energy').setOrigin(0,0).setScale(0.45);
+    const frameGamma = this.add.image(422,35, 'frame-gamma').setOrigin(0,0).setScale(0.45);
+
 
     // create elements
     const redCells = this.physics.add.group();
@@ -64,12 +85,6 @@ export class GameScene extends Phaser.Scene {
     });
     gameState.lympho.anims.play('lymphoAnimation',true)
 
-
-    gameState.lines = this.physics.add.staticGroup();
-    const linePositions = [{x: 0, y: 86},{x: 0, y: 552}];
-    linePositions.forEach( line => {
-      gameState.lines.create(line.x,line.y,'line').setScale(0.367).setOrigin(0,0).refreshBody();
-    })
 
     // background animations
     function whiteCellCreate() {
@@ -243,16 +258,21 @@ export class GameScene extends Phaser.Scene {
     this.physics.add.collider(gameState.lympho, gameState.lines);
     this.physics.add.collider(gameState.virus1, gameState.lines);
     this.physics.add.collider(gameState.virus2, gameState.lines);
+
+
+    // LIFE, ENERGY and GAMMA bars
+    
+
+
   }
 
   update() {
-
+    this.scene.pause()
     this.physics.add.overlap(gameState.virus1, this.control,  takeDamage, null, this)
 
     function takeDamage(virus) {
       gameState.control.hostHealth -= virus.life;
       virus.destroy();
-      console.log(gameState.control.hostHealth);
     }
 
 
