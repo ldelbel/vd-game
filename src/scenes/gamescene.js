@@ -12,12 +12,21 @@ let gameState = {
       gameState.control.hostHealth -= virus.life;
       virus.destroy();
     },
+    getGlucose: function(lympho,glucose) {
+      glucose.destroy()
+      if(gameState.control.glucose < 20) {
+        gameState.control.glucose += 1;
+      }
+    },
     updateLifeBar: function(lifebar){
       if(gameState.control.hostHealth < 0){
         lifebar.displayWidth = 0;
       } else {
         lifebar.displayWidth = 202.5 * (gameState.control.hostHealth/500);
       }
+    },
+    updateEnergyBar: function(energybar) {
+      energybar.displayWidth = 289.8 * (gameState.control.glucose / 20);
     }
   }
 };
@@ -44,6 +53,8 @@ export class GameScene extends Phaser.Scene {
     this.load.image('virus11', '../assets/virus-blue-2.png');
     this.load.image('virus2', '../assets/virus-yellow-1.png');
     this.load.image('virus21', '../assets/virus-yellow-2.png');
+    this.load.image('glucose', '../assets/glucose.png');
+    this.load.image('interferon', '../assets/interferon.png');
   }
   
   create() {
@@ -80,13 +91,13 @@ export class GameScene extends Phaser.Scene {
     
     const panel = this.add.image(0,0, 'panel').setOrigin(0,0).setScale(0.45);
     this.lifeBar = this.add.image(193,16,'lifebar').setOrigin(0,0).setScale(0.45);
-    const energyBar = this.add.image(106,66,'energybar').setOrigin(0,0).setScale(0.45);
+    this.energyBar = this.add.image(106,66,'energybar').setOrigin(0,0).setScale(0.45);
     const gammaBar = this.add.image(428,41,'gammabar').setOrigin(0,0).setScale(0.45);
     const frameLife = this.add.image(189, 10.5, 'frame-life').setOrigin(0,0).setScale(0.445);
     const frameEnergy = this.add.image(100.5,60, 'frame-energy').setOrigin(0,0).setScale(0.45);
     const frameGamma = this.add.image(422,35, 'frame-gamma').setOrigin(0,0).setScale(0.45);
     
-    console.log(this.lifeBar)
+    console.log(this.energyBar)
 
     // create elements
     const redCells = this.physics.add.group();
@@ -110,7 +121,6 @@ export class GameScene extends Phaser.Scene {
       cell.setScale(0.015);
       cell.alpha = 0.5;
       cell.setVelocityX(-600);
-      cell.body.setAllowGravity(false)
       cell.depth = -1;
     };
     function redCellCreate() {
@@ -119,7 +129,6 @@ export class GameScene extends Phaser.Scene {
       cell.setScale(0.04);
       cell.alpha = 0.5;
       cell.setVelocityX(-600);
-      cell.body.setAllowGravity(false)
       cell.depth = -1;
     };
     const redCellLoop = this.time.addEvent({
@@ -140,14 +149,14 @@ export class GameScene extends Phaser.Scene {
     gameState.antibody1.bulletAngleOffset = 90;
     gameState.antibody1.bulletSpeed = 400;
     gameState.antibody1.fireAngle = 0;
-    gameState.antibody1.fireRate = 200;
+    gameState.antibody1.fireRate = 400;
     gameState.antibody1.trackSprite(gameState.lympho,0,0);
 
     gameState.antibody2 = this.add.weapon(-1, 'antibody2');
     gameState.antibody2.bulletAngleOffset = 90;
     gameState.antibody2.bulletSpeed = 400;
     gameState.antibody2.fireAngle = 0;
-    gameState.antibody2.fireRate = 200;
+    gameState.antibody2.fireRate = 400;
     gameState.antibody2.trackSprite(gameState.lympho,0,0);
 
     gameState.currentAntibody = gameState.antibody1;
@@ -211,8 +220,8 @@ export class GameScene extends Phaser.Scene {
       virus1.setVelocity(-60, 100 * random);
       virus1.maxLife = 100;
       virus1.life = 100;
-      virus1.setBounce(1,1)
-      virus1.setMass(100000)
+      virus1.setBounce(1,1);
+      virus1.setMass(100000);
     }
 
     const virus1Loop = this.time.addEvent({
@@ -277,9 +286,22 @@ export class GameScene extends Phaser.Scene {
     this.physics.add.collider(gameState.virus2, gameState.lines);
 
 
-    // LIFE, ENERGY and GAMMA bars
-    
+    // Glucose and Interferon
+    gameState.glucoses = this.physics.add.group();
+    gameState.interferonGammas = this.physics.add.group();
 
+    function glucoseCreate() {
+      let random = Math.random() - Math.random();
+      let glucose = gameState.glucoses.create(gameState.gameWidth, 180 + Math.random() * 280, 'glucose').setScale(0.1);
+      glucose.setVelocity(-200, 0);
+    }
+
+    const glucoseLoop = this.time.addEvent({
+      delay: 17000,
+      callback: glucoseCreate,
+      callbackScope: this,
+      loop: true
+    });
 
   }
 
@@ -287,16 +309,19 @@ export class GameScene extends Phaser.Scene {
     // this.scene.pause()
     this.physics.add.overlap(gameState.virus1, this.control,  gameState.action.takeDamage, null, this);
     this.physics.add.overlap(gameState.virus2, this.control,  gameState.action.takeDamage, null, this)
+    this.physics.add.collider(gameState.glucoses,  gameState.lympho, gameState.action.getGlucose, null, this)
+    
     gameState.action.updateLifeBar(this.lifeBar)
-
-
+    gameState.action.updateEnergyBar(this.energyBar)
 
       gameState.virus1.children.entries.forEach( virus => {
         virus.rotation += 0.02;
       })
-
       gameState.virus2.children.entries.forEach( virus => {
         virus.rotation -= 0.02;
+      })
+      gameState.glucoses.children.entries.forEach( glucose => {
+        glucose.rotation -= 0.2;
       })
 
       if(gameState.cursors.right.isDown) {
