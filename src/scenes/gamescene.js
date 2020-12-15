@@ -5,7 +5,20 @@ let gameState = {
     gamma: 0,
     hostHealth: 500,
     score: 0,
-    difficulty: 1
+    difficulty: 1    
+  },
+  action: {
+    takeDamage: function(virus){
+      gameState.control.hostHealth -= virus.life;
+      virus.destroy();
+    },
+    updateLifeBar: function(lifebar){
+      if(gameState.control.hostHealth < 0){
+        lifebar.displayWidth = 0;
+      } else {
+        lifebar.displayWidth = 202.5 * (gameState.control.hostHealth/500);
+      }
+    }
   }
 };
 
@@ -64,12 +77,16 @@ export class GameScene extends Phaser.Scene {
     linePositions.forEach( line => {
       gameState.lines.create(line.x,line.y,'line').setScale(0.367).setOrigin(0,0).refreshBody();
     })
-
+    
     const panel = this.add.image(0,0, 'panel').setOrigin(0,0).setScale(0.45);
+    this.lifeBar = this.add.image(193,16,'lifebar').setOrigin(0,0).setScale(0.45);
+    const energyBar = this.add.image(106,66,'energybar').setOrigin(0,0).setScale(0.45);
+    const gammaBar = this.add.image(428,41,'gammabar').setOrigin(0,0).setScale(0.45);
     const frameLife = this.add.image(189, 10.5, 'frame-life').setOrigin(0,0).setScale(0.445);
     const frameEnergy = this.add.image(100.5,60, 'frame-energy').setOrigin(0,0).setScale(0.45);
     const frameGamma = this.add.image(422,35, 'frame-gamma').setOrigin(0,0).setScale(0.45);
-
+    
+    console.log(this.lifeBar)
 
     // create elements
     const redCells = this.physics.add.group();
@@ -267,13 +284,11 @@ export class GameScene extends Phaser.Scene {
   }
 
   update() {
-    this.scene.pause()
-    this.physics.add.overlap(gameState.virus1, this.control,  takeDamage, null, this)
+    // this.scene.pause()
+    this.physics.add.overlap(gameState.virus1, this.control,  gameState.action.takeDamage, null, this);
+    this.physics.add.overlap(gameState.virus2, this.control,  gameState.action.takeDamage, null, this)
+    gameState.action.updateLifeBar(this.lifeBar)
 
-    function takeDamage(virus) {
-      gameState.control.hostHealth -= virus.life;
-      virus.destroy();
-    }
 
 
       gameState.virus1.children.entries.forEach( virus => {
@@ -308,6 +323,7 @@ export class GameScene extends Phaser.Scene {
         gameState.switchAntibody()
       }
 
+      
 
     }
 }
