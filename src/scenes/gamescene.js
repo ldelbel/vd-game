@@ -3,7 +3,7 @@ let gameState = {
   control: {
     glucose: 0,
     gamma: 0,
-    hostHealth: 1000,
+    hostHealth: 500,
     score: 0,
     difficulty: 1
   }
@@ -138,10 +138,6 @@ export class GameScene extends Phaser.Scene {
         this.virus1.setBounce(1,1);
         this.virus1.setMass(100000);
 
-        console.log(this.virus1)
-
-
-
     function virusCreate1() {
       for(let i = 0; i < 2; i++) {
         let random = Math.random() - Math.random();
@@ -228,6 +224,7 @@ export class GameScene extends Phaser.Scene {
       virus.setVelocityX(-70);
       if(virus.life <= 0){
         virus.destroy()
+        gameState.control.score += virus.maxLife/10
       }
 
     }
@@ -238,10 +235,9 @@ export class GameScene extends Phaser.Scene {
       virus.setVelocityX(-70);
       if(virus.life <= 0){
         virus.destroy()
+        gameState.control.score += virus.maxLife/10
       }
     }
-
-
 
     // Colliders
     this.physics.add.collider(gameState.lympho, gameState.lines);
@@ -251,11 +247,12 @@ export class GameScene extends Phaser.Scene {
 
   update() {
 
-    this.physics.add.overlap(gameState.virus1, this.control,  check, null, this)
+    this.physics.add.overlap(gameState.virus1, this.control,  takeDamage, null, this)
 
-    function check(virus) {
-      console.log(virus.life)
-      virus.destroy()
+    function takeDamage(virus) {
+      gameState.control.hostHealth -= virus.life;
+      virus.destroy();
+      console.log(gameState.control.hostHealth);
     }
 
 
