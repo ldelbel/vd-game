@@ -1,76 +1,17 @@
+import {gameState} from '../game/gamestate'
 
-let gameState = {
-  control: {
-    glucose: 0,
-    gamma: 0,
-    hostHealth: 500,
-    score: 0,
-    difficulty: 1    
+export var GameScene =  new Phaser.Class ({
+
+  Extends: Phaser.Scene,
+
+  initialize: function GameScene() {
+    Phaser.Scene.call(this, {key: 'gamescene'})
   },
-  action: {
-    takeDamage: function(virus){
-      gameState.control.hostHealth -= virus.life;
-      virus.destroy();
-    },
-    getGlucose: function(lympho,glucose) {
-      glucose.destroy()
-      if(gameState.control.glucose < 20) {
-        gameState.control.glucose += 1;
-        gameState.antibody1.fireRate = 400 - gameState.control.glucose * 10;
-        gameState.antibody2.fireRate = 400 - gameState.control.glucose * 10;
-        gameState.antibody3.fireRate = gameState.antibody1 - 100;
-      }
-    },
-    getInterferon: function(lympho, interferon) {
-      interferon.destroy()
-      if(gameState.control.gamma < 4) {
-        gameState.control.gamma += 1;
-      }
-    },
-    updateLifeBar: function(lifebar){
-      if(gameState.control.hostHealth < 0){
-        lifebar.displayWidth = 0;
-      } else {
-        lifebar.displayWidth = 202.5 * (gameState.control.hostHealth/500);
-      }
-    },
-    updateEnergyBar: function(energybar) {
-      energybar.displayWidth = 289.8 * (gameState.control.glucose / 20);
-    },
-    updateGammaBar: function(gammabar) {
-      gammabar.displayWidth = 184.5 * (gameState.control.gamma / 4);
-    },
-  }
-};
 
-export class GameScene extends Phaser.Scene {
-
-  preload() {
-    this.load.image('background', '../assets/background-new.png');
-    this.load.image('panel', '../assets/panel.png');
-    this.load.image('frame-life', '../assets/frame-life.png');
-    this.load.image('frame-energy', '../assets/frame-energy.png');
-    this.load.image('frame-gamma', '../assets/frame-gamma.png');
-    this.load.image('lifebar', '../assets/lifebar.png');
-    this.load.image('energybar', '../assets/energybar.png');
-    this.load.image('gammabar', '../assets/gammabar.png');
-    this.load.image('line', '../assets/line.png');
-    this.load.image('vertical-line', '../assets/vertical-line.png')
-    this.load.spritesheet('lympho1', '../assets/lymphocyte2.png', {frameWidth: 176, frameHeight: 177}, 5);
-    this.load.image('red-cell', '../assets/red-cell.png');
-    this.load.image('white-cell', '../assets/white-cell.png');
-    this.load.image('antibody1', '../assets/antibody1-small.png');
-    this.load.image('antibody2', '../assets/antibody2-small.png');
-    this.load.image('antibody3', '../assets/antibody-special.png');
-    this.load.image('virus1', '../assets/virus-blue-1.png');
-    this.load.image('virus11', '../assets/virus-blue-2.png');
-    this.load.image('virus2', '../assets/virus-yellow-1.png');
-    this.load.image('virus21', '../assets/virus-yellow-2.png');
-    this.load.image('glucose', '../assets/glucose.png');
-    this.load.image('interferon', '../assets/interferon.png');
-  }
+  preload: function() {
+  },
   
-  create() {
+  create: function() {
     // Install Weapon Plugin
     this.plugins.installScenePlugin(
       'WeaponPlugin',
@@ -83,9 +24,6 @@ export class GameScene extends Phaser.Scene {
     // Defining important variables
     gameState.gameWidth = this.game.config.width;
     gameState.gameHeight = this.game.config.height;
-
-
-
 
     // background
     const background = this.add.image(0, -50, 'background').setScale(0.367);
@@ -143,18 +81,19 @@ export class GameScene extends Phaser.Scene {
       cell.setVelocityX(-600);
       cell.depth = -1;
     };
-    // const redCellLoop = this.time.addEvent({
-    //   delay: 300,
-    //   callback: redCellCreate,
-    //   callbackScope: this,
-    //   loop: true
-    // });
-    // const whiteCellLoop = this.time.addEvent({
-    //   delay: 400,
-    //   callback: whiteCellCreate,
-    //   callbackScope: this,
-    //   loop: true
-    // });    
+    
+    const redCellLoop = this.time.addEvent({
+      delay: 300,
+      callback: redCellCreate,
+      callbackScope: this,
+      loop: true
+    });
+    const whiteCellLoop = this.time.addEvent({
+      delay: 400,
+      callback: whiteCellCreate,
+      callbackScope: this,
+      loop: true
+    });    
 
     // firing antibodies    
     gameState.antibody1 = this.add.weapon(-1, 'antibody1');
@@ -191,16 +130,10 @@ export class GameScene extends Phaser.Scene {
     // Enemies
     gameState.virus1 = this.physics.add.group();
     gameState.virus2 = this.physics.add.group();
-    let random = Math.random() - Math.random();
-    this.virus1 = gameState.virus1.create(gameState.gameWidth, 150 + Math.random() * 300, 'virus1').setScale(0.2);
-        this.virus1.setVelocity(-100, 0);
-        this.virus1.life = 30;
-        this.virus1.maxLife = 30;
-        this.virus1.setBounce(1,1);
-        this.virus1.setMass(100000);
+    gameState.virus3 = this.physics.add.group();
 
     function virusCreate1() {
-      for(let i = 0; i < 2; i++) {
+      for(let i = 0; i < 1 + gameState.control.difficulty; i++) {
         let random = Math.random() - Math.random();
         let virus1 = gameState.virus1.create(gameState.gameWidth, 150 + Math.random() * 300, 'virus1').setScale(0.2);
         virus1.setVelocity(-80, 100 * random);
@@ -212,7 +145,7 @@ export class GameScene extends Phaser.Scene {
     }
 
     function virusCreate2() {
-      for(let i = 0; i < 2; i++) {
+      for(let i = 0; i < 1 + gameState.control.difficulty; i++) {
         let random = Math.random() - Math.random();
         let virus1 = gameState.virus2.create(gameState.gameWidth, 150 + Math.random() * 300, 'virus2').setScale(0.2);
         virus1.setVelocity(-80, 100 * random);
@@ -224,23 +157,78 @@ export class GameScene extends Phaser.Scene {
     }
 
     function virusCreate11() {
-      let random = Math.random() - Math.random();
-      let virus1 = gameState.virus1.create(gameState.gameWidth, 180 + Math.random() * 280, 'virus11').setScale(0.4);
-      virus1.setVelocity(-60, 100 * random);
-      virus1.maxLife = 100;
-      virus1.life = 100;
-      virus1.setBounce(1,1)
-      virus1.setMass(100000)
+      for(let i = 0; i < gameState.control.difficulty; i++) {
+        let random = Math.random() - Math.random();
+        let virus1 = gameState.virus1.create(gameState.gameWidth, 180 + Math.random() * 280, 'virus11').setScale(0.4);
+        virus1.setVelocity(-60, 100 * random);
+        virus1.maxLife = 100;
+        virus1.life = 100;
+        virus1.setBounce(1,1)
+        virus1.setMass(100000)
+      }
     }
 
     function virusCreate21() {
-      let random = Math.random() - Math.random();
-      let virus1 = gameState.virus2.create(gameState.gameWidth, 180 + Math.random() * 280, 'virus21').setScale(0.4);
-      virus1.setVelocity(-60, 100 * random);
-      virus1.maxLife = 100;
-      virus1.life = 100;
-      virus1.setBounce(1,1);
-      virus1.setMass(100000);
+      for(let i = 0; i < gameState.control.difficulty; i++) {
+        let random = Math.random() - Math.random();
+        let virus1 = gameState.virus2.create(gameState.gameWidth, 180 + Math.random() * 280, 'virus21').setScale(0.4);
+        virus1.setVelocity(-60, 100 * random);
+        virus1.maxLife = 100;
+        virus1.life = 100;
+        virus1.setBounce(1,1);
+        virus1.setMass(100000);
+      }
+    }
+
+    function virusCreate3() {
+      if(gameState.control.score > 200){
+        for(let i = 0; i < gameState.control.difficulty; i++){
+          let random = Math.random() - Math.random();
+          let virus = gameState.virus3.create(gameState.gameWidth, 180 + Math.random() * 280, 'virus3').setScale(0.4);
+          virus.setVelocity(-50, 90 * random);
+          virus.maxLife = 120;
+          virus.life = 120;
+          virus.setBounce(1,1);
+          virus.setMass(100000);
+        }
+      }
+    }
+
+    this.sarsCreate1 = function() {
+      if(gameState.control.score > 200){
+        let random = Math.random() - Math.random();
+        let virus = gameState.virus1.create(gameState.gameWidth + 200, 320, 'covid-blue').setScale(0.8);
+        virus.setVelocity(-15, 0);
+        virus.maxLife = 300;
+        virus.life = 300;
+        virus.setBounce(1,1);
+        virus.setMass(100000);
+      }
+    }
+
+    function sarsCreate2() {
+      if(gameState.control.score > 400){
+        let random = Math.random() - Math.random();
+        let virus = gameState.virus2.create(gameState.gameWidth + 200, 320, 'covid-yellow').setScale(0.8);
+        virus.setVelocity(-15, 0);
+        virus.maxLife = 300;
+        virus.life = 300;
+        virus.setBounce(1,1);
+        virus.setMass(100000);
+        
+      }
+    }
+
+    function sarsCreate3() {
+      if(gameState.control.score > 400){
+        let random = Math.random() - Math.random();
+        let virus = gameState.virus3.create(gameState.gameWidth + 200, 320, 'covid-green').setScale(0.85);
+        virus.setVelocity(-15, 0);
+        virus.maxLife = 400;
+        virus.life = 400;
+        virus.setBounce(1,1);
+        virus.setMass(100000);
+      }
     }
 
     const virus1Loop = this.time.addEvent({
@@ -270,6 +258,14 @@ export class GameScene extends Phaser.Scene {
       callbackScope: this,
       loop: true
     }); 
+
+    const virus3Loop = this.time.addEvent({
+      delay: 40000,
+      callback: virusCreate3,
+      callbackScope: this,
+      loop: true
+    }); 
+    
     
     function hitVirusHard(antibody, virus) {
       antibody.destroy();
@@ -278,6 +274,10 @@ export class GameScene extends Phaser.Scene {
       if(virus.life <= 0){
         gameState.control.score += virus.maxLife/10
         virus.destroy()
+        if(gameState.control.score > 500 && gameState.control.difficulty === 1){
+          gameState.control.difficulty += 1
+        }
+        console.log(gameState.control.score)
       }
     }
 
@@ -286,8 +286,12 @@ export class GameScene extends Phaser.Scene {
       virus.life -= 5;
       virus.setVelocityX(-70);
       if(virus.life <= 0){
-        virus.destroy()
         gameState.control.score += virus.maxLife/10
+        virus.destroy()
+        if(gameState.control.score > 500 && gameState.control.difficulty === 1){
+          gameState.control.difficulty += 1
+        }
+        console.log(gameState.control.score)
       }
     }
 
@@ -298,12 +302,12 @@ export class GameScene extends Phaser.Scene {
       if(virus.life <= 0){
         gameState.control.score += virus.maxLife/10
         virus.destroy()
+        if(gameState.control.score > 500 && gameState.control.difficulty === 1){
+          gameState.control.difficulty += 1
+        }
+        console.log(gameState.control.score)
       }
     }
-
-    // Colliders
-
-
 
     // Glucose and Interferon
     gameState.glucoses = this.physics.add.group();
@@ -328,9 +332,24 @@ export class GameScene extends Phaser.Scene {
       interferon.setVelocity(-200, 0);
     }
 
+    function interferonCreate2() {
+      if(gameState.control.difficulty > 1){
+        let random = Math.random() - Math.random();
+        let interferon = gameState.interferonGammas.create(gameState.gameWidth, 180 + Math.random() * 280, 'interferon').setScale(0.15);
+        interferon.setVelocity(-200, 0);
+      }
+    }
+
     const interferonLoop = this.time.addEvent({
-      delay: 22000,
+      delay: 25000,
       callback: interferonCreate,
+      callbackScope: this,
+      loop: true
+    });
+
+    const interferon2Loop = this.time.addEvent({
+      delay: 22000,
+      callback: interferonCreate2,
       callbackScope: this,
       loop: true
     });
@@ -357,18 +376,26 @@ export class GameScene extends Phaser.Scene {
     this.physics.add.collider(gameState.virus2,  gameState.antibody2.bullets, hitVirusHard, null, this);
     this.physics.add.collider(gameState.virus1,  gameState.antibody3.bullets, hitVirusVeryHard, null, this);
     this.physics.add.collider(gameState.virus2,  gameState.antibody3.bullets, hitVirusVeryHard, null, this);
+    this.physics.add.collider(gameState.virus3,  gameState.antibody1.bullets, hitVirusSoft, null, this);
+    this.physics.add.collider(gameState.virus3,  gameState.antibody2.bullets, hitVirusSoft, null, this);
+    this.physics.add.collider(gameState.virus3,  gameState.antibody3.bullets, hitVirusVeryHard, null, this);
+
 
     this.physics.add.collider(gameState.lympho, gameState.lines);
     this.physics.add.collider(gameState.virus1, gameState.lines);
     this.physics.add.collider(gameState.virus2, gameState.lines);
+    this.physics.add.collider(gameState.virus3, gameState.lines);
 
     this.physics.add.overlap(gameState.virus1, this.control,  gameState.action.takeDamage, null, this);
     this.physics.add.overlap(gameState.virus2, this.control,  gameState.action.takeDamage, null, this);
+    this.physics.add.overlap(gameState.virus3, this.control,  gameState.action.takeDamage, null, this);
     this.physics.add.overlap(gameState.glucoses, gameState.lympho, gameState.action.getGlucose, null, this);
-    this.physics.add.overlap(gameState.interferonGammas, gameState.lympho, gameState.action.getInterferon, null, this)
-  }
+    this.physics.add.overlap(gameState.interferonGammas, gameState.lympho, gameState.action.getInterferon, null, this);
 
-  update() {
+    this.var = 0;
+  },
+
+  update: function() {
     this.scene.pause()
     
     // if(this.timer !== 0) {
@@ -418,7 +445,13 @@ export class GameScene extends Phaser.Scene {
         gameState.switchAntibody()
       }
 
-      
+      if(gameState.control.score > 200){
+        if(this.var === 0){
+          this.sarsCreate1();
+          this.var += 1;
+        }
+      }
+
 
     }
-}
+})
