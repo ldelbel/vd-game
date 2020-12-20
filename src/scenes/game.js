@@ -52,16 +52,32 @@ export var GameScene =  new Phaser.Class ({
     // create elements
     const redCells = this.physics.add.group();
     const whiteCells = this.physics.add.group();
-    gameState.lympho = this.physics.add.sprite(200, 200, 'lympho1').setScale(0.6);
+    gameState.lympho = this.physics.add.sprite(200, 200, 'lympho1').setScale(0.4);
     gameState.lympho.setCollideWorldBounds(true);
     gameState.cursors = this.input.keyboard.createCursorKeys();
     this.anims.create({
-      key: 'lymphoAnimation',
+      key: 'lymphoAnimation1',
       frames: this.anims.generateFrameNumbers('lympho1', { start: 0, end: 5 }),
       frameRate: 8,
       repeat: -1
     });
-    gameState.lympho.anims.play('lymphoAnimation',true)
+
+    this.anims.create({
+      key: 'lymphoAnimation2',
+      frames: this.anims.generateFrameNumbers('lympho2', { start: 0, end: 5 }),
+      frameRate: 8,
+      repeat: -1
+    });
+
+    this.anims.create({
+      key: 'lymphoAnimation3',
+      frames: this.anims.generateFrameNumbers('lympho3', { start: 0, end: 5 }),
+      frameRate: 8,
+      repeat: -1
+    });
+
+
+    gameState.lympho.anims.play('lymphoAnimation1',true)
 
 
     // background animations
@@ -122,8 +138,10 @@ export var GameScene =  new Phaser.Class ({
     gameState.switchAntibody = function() {
       if(gameState.currentAntibody == gameState.antibody1) {
         gameState.currentAntibody = gameState.antibody2;
+        gameState.lympho.anims.play('lymphoAnimation2',true);
       } else if(gameState.currentAntibody == gameState.antibody2){
         gameState.currentAntibody = gameState.antibody1;
+        gameState.lympho.anims.play('lymphoAnimation1',true);
       }
     }
 
@@ -358,13 +376,15 @@ export var GameScene =  new Phaser.Class ({
     this.gammaOn = function() {
       if(gameState.control.gamma === 4){
         gameState.currentAntibody = gameState.antibody3
-        this.timer = this.time.delayedCall(10000, this.gammaOff, null, this);
+        gameState.lympho.anims.play('lymphoAnimation3',true)
+        this.timer = this.time.delayedCall(12000, this.gammaOff, null, this);
       }
     }
 
     this.gammaOff = function() {
       gameState.currentAntibody = gameState.antibody1;
       gameState.control.gamma = 0;
+      gameState.lympho.anims.play('lymphoAnimation1',true)
       this.timer = 0;
     }
 

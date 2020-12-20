@@ -55,7 +55,9 @@ export var PreloaderScene = new Phaser.Class({
     this.load.image('gammabar', '../assets/gammabar.png');
     this.load.image('line', '../assets/line.png');
     this.load.image('vertical-line', '../assets/vertical-line.png')
-    this.load.spritesheet('lympho1', '../assets/lymphocyte2.png', {frameWidth: 176, frameHeight: 177}, 5);
+    this.load.spritesheet('lympho1', '../assets/lymphocyte-blue.png', {frameWidth: 272, frameHeight: 237}, 6);
+    this.load.spritesheet('lympho2', '../assets/lymphocyte-yellow.png', {frameWidth: 272, frameHeight: 237}, 6);
+    this.load.spritesheet('lympho3', '../assets/lymphocyte-green.png', {frameWidth: 272, frameHeight: 237}, 6);
     this.load.image('red-cell', '../assets/red-cell.png');
     this.load.image('white-cell', '../assets/white-cell.png');
     this.load.image('antibody1', '../assets/antibody1-small.png');
