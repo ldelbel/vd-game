@@ -44,6 +44,15 @@ export var PreloaderScene = new Phaser.Class({
 		this.loadingbar_bg   = this.add.sprite(550, 300, "loadingbar_bg");
 		this.loadingbar_fill = this.add.sprite(550, 300, "loadingbar_fill");
 		this.setPreloadSprite(this.loadingbar_fill);
+    this.load.image('menu-panel', '../assets/panel-menu.png');   
+    this.load.image('play-btn', '../assets/btn-play.png');
+    this.load.image('play-btn-h', '../assets/btn-play-h.png');
+    this.load.image('options-btn', '../assets/btn-options.png');
+    this.load.image('options-btn-h', '../assets/btn-options-h.png');
+    this.load.image('leader-btn', '../assets/btn-leader.png');
+    this.load.image('leader-btn-h', '../assets/btn-leader-h.png');
+    this.load.image('credits-btn', '../assets/btn-credits.png');
+    this.load.image('credits-btn-h', '../assets/btn-credits-h.png');
 
     this.load.image('background', '../assets/background-new.png');
     this.load.image('panel', '../assets/panel.png');
@@ -54,7 +63,7 @@ export var PreloaderScene = new Phaser.Class({
     this.load.image('energybar', '../assets/energybar.png');
     this.load.image('gammabar', '../assets/gammabar.png');
     this.load.image('line', '../assets/line.png');
-    this.load.image('vertical-line', '../assets/vertical-line.png')
+    this.load.image('vertical-line', '../assets/vertical-line.png');
     this.load.spritesheet('lympho1', '../assets/lymphocyte-blue.png', {frameWidth: 272, frameHeight: 237}, 6);
     this.load.spritesheet('lympho2', '../assets/lymphocyte-yellow.png', {frameWidth: 272, frameHeight: 237}, 6);
     this.load.spritesheet('lympho3', '../assets/lymphocyte-green.png', {frameWidth: 272, frameHeight: 237}, 6);

@@ -40,7 +40,7 @@ export var GameScene =  new Phaser.Class ({
       gameState.lines.create(line.x,line.y,'line').setScale(0.367).setOrigin(0,0).refreshBody();
     })
     
-    const panel = this.add.image(0,0, 'panel').setOrigin(0,0).setScale(0.45);
+    const panel = this.add.image(2,2, 'panel').setOrigin(0,0).setScale(0.45);
     this.lifeBar = this.add.image(193,16,'lifebar').setOrigin(0,0).setScale(0.45);
     this.energyBar = this.add.image(106,66,'energybar').setOrigin(0,0).setScale(0.45);
     this.gammaBar = this.add.image(428,41,'gammabar').setOrigin(0,0).setScale(0.45);
@@ -72,7 +72,7 @@ export var GameScene =  new Phaser.Class ({
     this.anims.create({
       key: 'lymphoAnimation3',
       frames: this.anims.generateFrameNumbers('lympho3', { start: 0, end: 5 }),
-      frameRate: 8,
+      frameRate: 12,
       repeat: -1
     });
 
@@ -217,8 +217,8 @@ export var GameScene =  new Phaser.Class ({
         let random = Math.random() - Math.random();
         let virus = gameState.virus1.create(gameState.gameWidth + 200, 320, 'covid-blue').setScale(0.8);
         virus.setVelocity(-15, 0);
-        virus.maxLife = 300;
-        virus.life = 300;
+        virus.maxLife = 400;
+        virus.life = 400;
         virus.setBounce(1,1);
         virus.setMass(100000);
       }
@@ -229,8 +229,8 @@ export var GameScene =  new Phaser.Class ({
         let random = Math.random() - Math.random();
         let virus = gameState.virus2.create(gameState.gameWidth + 200, 320, 'covid-yellow').setScale(0.8);
         virus.setVelocity(-15, 0);
-        virus.maxLife = 300;
-        virus.life = 300;
+        virus.maxLife = 400;
+        virus.life = 400;
         virus.setBounce(1,1);
         virus.setMass(100000);
         
@@ -242,8 +242,8 @@ export var GameScene =  new Phaser.Class ({
         let random = Math.random() - Math.random();
         let virus = gameState.virus3.create(gameState.gameWidth + 200, 320, 'covid-green').setScale(0.85);
         virus.setVelocity(-15, 0);
-        virus.maxLife = 400;
-        virus.life = 400;
+        virus.maxLife = 500;
+        virus.life = 500;
         virus.setBounce(1,1);
         virus.setMass(100000);
       }
@@ -334,7 +334,7 @@ export var GameScene =  new Phaser.Class ({
     function glucoseCreate() {
       let random = Math.random() - Math.random();
       let glucose = gameState.glucoses.create(gameState.gameWidth, 180 + Math.random() * 280, 'glucose').setScale(0.1);
-      glucose.setVelocity(-200, 0);
+      glucose.setVelocity(-300, 0);
     }
 
     const glucoseLoop = this.time.addEvent({
@@ -347,14 +347,14 @@ export var GameScene =  new Phaser.Class ({
     function interferonCreate() {
       let random = Math.random() - Math.random();
       let interferon = gameState.interferonGammas.create(gameState.gameWidth, 180 + Math.random() * 280, 'interferon').setScale(0.15);
-      interferon.setVelocity(-200, 0);
+      interferon.setVelocity(-300, 0);
     }
 
     function interferonCreate2() {
       if(gameState.control.difficulty > 1){
         let random = Math.random() - Math.random();
         let interferon = gameState.interferonGammas.create(gameState.gameWidth, 180 + Math.random() * 280, 'interferon').setScale(0.15);
-        interferon.setVelocity(-200, 0);
+        interferon.setVelocity(-300, 0);
       }
     }
 
