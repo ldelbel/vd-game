@@ -27,6 +27,7 @@ export var GameScene =  new Phaser.Class ({
 
     // background
     const background = this.add.image(0, -50, 'background').setScale(0.367);
+
     this.control = this.physics.add.staticGroup();
     let controlLine = this.control.create(-100, 100, 'vertical-line').setScale(0.16).setOrigin(0,0);
     controlLine.refreshBody()
@@ -39,14 +40,14 @@ export var GameScene =  new Phaser.Class ({
     linePositions.forEach( line => {
       gameState.lines.create(line.x,line.y,'line').setScale(0.367).setOrigin(0,0).refreshBody();
     })
-    
+    const scoreBoard = this.add.image(980,570, 'score').setScale(0.25);
     const panel = this.add.image(2,2, 'panel').setOrigin(0,0).setScale(0.45);
     this.lifeBar = this.add.image(193,16,'lifebar').setOrigin(0,0).setScale(0.45);
     this.energyBar = this.add.image(106,66,'energybar').setOrigin(0,0).setScale(0.45);
     this.gammaBar = this.add.image(428,41,'gammabar').setOrigin(0,0).setScale(0.45);
     const frameLife = this.add.image(189, 10.5, 'frame-life').setOrigin(0,0).setScale(0.445);
-    const frameEnergy = this.add.image(100.5,60, 'frame-energy').setOrigin(0,0).setScale(0.45);
-    const frameGamma = this.add.image(422,35, 'frame-gamma').setOrigin(0,0).setScale(0.45);
+    const frameEnergy = this.add.image(102.5,62, 'frame-energy').setOrigin(0,0).setScale(0.45);
+    const frameGamma = this.add.image(424,37, 'frame-gamma').setOrigin(0,0).setScale(0.45);
 
 
     // create elements
@@ -296,6 +297,7 @@ export var GameScene =  new Phaser.Class ({
           gameState.control.difficulty += 1
         }
         console.log(gameState.control.score)
+        this.displayScore
       }
     }
 
@@ -310,6 +312,7 @@ export var GameScene =  new Phaser.Class ({
           gameState.control.difficulty += 1
         }
         console.log(gameState.control.score)
+        this.displayScore
       }
     }
 
@@ -324,6 +327,7 @@ export var GameScene =  new Phaser.Class ({
           gameState.control.difficulty += 1
         }
         console.log(gameState.control.score)
+        this.displayScore
       }
     }
 
@@ -413,6 +417,17 @@ export var GameScene =  new Phaser.Class ({
     this.physics.add.overlap(gameState.interferonGammas, gameState.lympho, gameState.action.getInterferon, null, this);
 
     this.var = 0;
+
+
+    this.displayScore = this.add.text(1060  ,550, `${gameState.control.score}`, {
+        color: 'green',
+        fontSize: '40px',
+        fontWeight: 'bold',
+      }).setOrigin(1,0);
+
+    this.updateScore = () => {
+      this.displayScore.setText(`${gameState.control.score}`)
+    }
   },
 
   update: function() {
@@ -472,6 +487,7 @@ export var GameScene =  new Phaser.Class ({
         }
       }
 
+      this.updateScore()
 
     }
 })

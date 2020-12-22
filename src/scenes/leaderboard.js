@@ -9,11 +9,6 @@ export var Leaderboard = new Phaser.Class({
       Phaser.Scene.call(this, { key: 'leaderboardscene' });
   },
 
-  preload: function ()
-  {
-    
-  },
-
   create: function ()
   {
 
