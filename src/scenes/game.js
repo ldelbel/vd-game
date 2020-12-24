@@ -42,10 +42,10 @@ export var GameScene =  new Phaser.Class ({
     })
     const scoreBoard = this.add.image(980,570, 'score').setScale(0.25);
     const panel = this.add.image(2,2, 'panel').setOrigin(0,0).setScale(0.45);
-    this.lifeBar = this.add.image(193,16,'lifebar').setOrigin(0,0).setScale(0.45);
-    this.energyBar = this.add.image(106,66,'energybar').setOrigin(0,0).setScale(0.45);
-    this.gammaBar = this.add.image(428,41,'gammabar').setOrigin(0,0).setScale(0.45);
-    const frameLife = this.add.image(189, 10.5, 'frame-life').setOrigin(0,0).setScale(0.445);
+    this.lifeBar = this.add.image(194,18,'lifebar').setOrigin(0,0).setScale(0.45);
+    this.energyBar = this.add.image(108,67,'energybar').setOrigin(0,0).setScale(0.45);
+    this.gammaBar = this.add.image(430,42,'gammabar').setOrigin(0,0).setScale(0.45);
+    const frameLife = this.add.image(191, 12.5, 'frame-life').setOrigin(0,0).setScale(0.445);
     const frameEnergy = this.add.image(102.5,62, 'frame-energy').setOrigin(0,0).setScale(0.45);
     const frameGamma = this.add.image(424,37, 'frame-gamma').setOrigin(0,0).setScale(0.45);
 
@@ -296,8 +296,6 @@ export var GameScene =  new Phaser.Class ({
         if(gameState.control.score > 500 && gameState.control.difficulty === 1){
           gameState.control.difficulty += 1
         }
-        console.log(gameState.control.score)
-        this.displayScore
       }
     }
 
@@ -311,8 +309,6 @@ export var GameScene =  new Phaser.Class ({
         if(gameState.control.score > 500 && gameState.control.difficulty === 1){
           gameState.control.difficulty += 1
         }
-        console.log(gameState.control.score)
-        this.displayScore
       }
     }
 
@@ -326,8 +322,6 @@ export var GameScene =  new Phaser.Class ({
         if(gameState.control.score > 500 && gameState.control.difficulty === 1){
           gameState.control.difficulty += 1
         }
-        console.log(gameState.control.score)
-        this.displayScore
       }
     }
 
@@ -431,7 +425,7 @@ export var GameScene =  new Phaser.Class ({
   },
 
   update: function() {
-    this.scene.pause()
+    // this.scene.pause()
     
     // if(this.timer !== 0) {
     //   console.log(10 - Math.trunc(this.timer.getElapsedSeconds()))
