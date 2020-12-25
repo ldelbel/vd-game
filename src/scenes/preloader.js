@@ -53,6 +53,19 @@ export var PreloaderScene = new Phaser.Class({
     this.load.image('leader-btn-h', '../assets/btn-leader-h.png');
     this.load.image('credits-btn', '../assets/btn-credits.png');
     this.load.image('credits-btn-h', '../assets/btn-credits-h.png');
+  
+    this.load.image('tutorial1', '../assets/tutorial1.png');
+    this.load.image('tutorial2', '../assets/tutorial2.png');
+    this.load.image('tutorial3', '../assets/tutorial3.png');
+    this.load.image('tutorial4', '../assets/tutorial4.png');
+    this.load.image('tutorial5', '../assets/tutorial5.png');
+    this.load.image('tutorial6', '../assets/tutorial6.png');
+    this.load.image('tutorial7', '../assets/tutorial7.png');
+    this.load.image('menu-btn', '../assets/menu-btn.png');
+    this.load.image('prev-btn', '../assets/prev-btn.png');
+    this.load.image('next-btn', '../assets/next-btn.png');
+    this.load.image('skip-btn', '../assets/skip-btn.png');
+
     this.load.image('background', '../assets/background-new.png');
     this.load.image('score', '../assets/score.png');
     this.load.image('panel', '../assets/panel.png');
