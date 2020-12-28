@@ -8,6 +8,7 @@ import {Tutorial4} from '../scenes/tutorial4';
 import {Tutorial5} from '../scenes/tutorial5';
 import {Tutorial6} from '../scenes/tutorial6';
 import {Tutorial7} from '../scenes/tutorial7';
+import { OptionsScene } from '../scenes/options';
 
 
 const config = {
@@ -30,6 +31,7 @@ const config = {
   scene: [
     PreloaderScene,
     MenuScene,
+    OptionsScene,
     Tutorial1,
     Tutorial2,
     Tutorial3,

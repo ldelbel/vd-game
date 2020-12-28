@@ -19,7 +19,7 @@ export default class Button extends Phaser.GameObjects.Container {
     });
 
     this.button.on('pointerover', () => {
-      this.button.setTexture(key2);
+      this.button.setTexture(key2);      
     });
 
     this.button.on('pointerout', () => {

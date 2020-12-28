@@ -1,3 +1,5 @@
+import Model from '../model'
+
 export var PreloaderScene = new Phaser.Class({
 
   Extends: Phaser.Scene,
@@ -98,13 +100,25 @@ export var PreloaderScene = new Phaser.Class({
     this.load.image('test', '../assets/test.jpg');
     this.load.image('btn', '../assets/button.jpg');
     this.load.image('btn1', '../assets/button1.png');
+    this.load.image('checked', '../assets/checked.png');
+    this.load.image('unchecked', '../assets/unchecked.png');
+    this.load.image('music-enabled', '../assets/music-enabled.png');
+    this.load.image('sound-enabled', '../assets/sound-enabled.png');
+
+    this.load.audio('hover','../assets/audio/hover_effect.mp3');
+    this.load.audio('click','../assets/audio/click_effect.mp3');
+    this.load.audio('shoot','../assets/audio/shoot_effect.mp3');
+    this.load.audio('menusong','../assets/audio/menu_song.mp3');
+    this.load.audio('gamesong','../assets/audio/game_song.mp3');
   },
   
   create: function() {
+    const model = new Model();
+    this.sys.game.globals = { model };
+    console.log(this.sys.game.globals)
     this.loadingbar_bg.destroy();
 		this.loadingbar_fill.destroy();
 		this.preloadSprite = null;
-
     this.scene.start('menuscene');
   }
 
