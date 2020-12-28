@@ -21,24 +21,33 @@ export var OptionsScene = new Phaser.Class({
     const menuBtn = new Button(this, 390, 410, 'menu-btn', 'menu-btn', 'menuscene').setScale(0.35);
     musicCheck.setInteractive();
     soundCheck.setInteractive();
+
+    this.model = this.sys.game.globals.model;
+    this.bgMusic = this.sys.game.globals.bgMusic;
     
     musicCheck.on('pointerdown', () => {
       if (musicCheck.texture.key == 'checked') {
-      musicCheck.setTexture('unchecked')
-      musicCheck.y = 214
+      musicCheck.setTexture('unchecked');
+      musicCheck.y = 214;
+      this.model.musicOn = false;
+      this.model.bgMusicPlaying = false;
+      this.bgMusic.stop()
       } else {
-        musicCheck.setTexture('checked')
-        musicCheck.y = 210
+        musicCheck.setTexture('checked');
+        musicCheck.y = 210;
+        this.model.musicOn = true;
+        this.model.bgMusicPlaying = true;
+        this.bgMusic.play()
       }
     })
 
     soundCheck.on('pointerdown', () => {
       if (soundCheck.texture.key == 'checked') {
-      soundCheck.setTexture('unchecked')
-      soundCheck.y = 284
+      soundCheck.setTexture('unchecked');
+      soundCheck.y = 284;
       } else {
-        soundCheck.setTexture('checked')
-        soundCheck.y = 280
+        soundCheck.setTexture('checked');
+        soundCheck.y = 280;
       }
     })
 

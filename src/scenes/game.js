@@ -19,6 +19,11 @@ export var GameScene =  new Phaser.Class ({
       'weapons',
       this
   );
+      if(this.sys.game.globals.model.musicOn === true){
+        this.sys.game.globals.bgMusic.stop();
+        this.gameSong = this.sound.add('gamesong', {volume: 0.3, loop: true});
+        this.gameSong.play();
+      }
 
     this.physics.world.setBounds(0,100,1050,450);
     // Defining important variables
