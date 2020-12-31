@@ -1,5 +1,4 @@
-import Button from '../game/resources/button'
-import Model from '../model'
+import MenuButton from '../game/resources/menubutton'
 
 export var MenuScene = new Phaser.Class({
 
@@ -15,10 +14,10 @@ export var MenuScene = new Phaser.Class({
   create: function ()
   {
     const panel = this.add.image(550,300, 'menu-panel').setScale(0.35);
-    this.playBtn = new Button(this, 550, 220, 'play-btn', 'play-btn-h', 'tutorial1').setScale(0.35);
-    this.optionsBtn = new Button(this, 550, 280, 'options-btn', 'options-btn-h', 'optionsscene').setScale(0.35);
-    this.leaderBtn = new Button(this, 550, 340, 'leader-btn', 'leader-btn-h', 'gamescene').setScale(0.35);
-    this.creditsBtn = new Button(this, 550, 400, 'credits-btn', 'credits-btn-h', 'gamescene').setScale(0.35);
+    this.playBtn = new MenuButton(this, 550, 220, 'play-btn', 'play-btn-h', 'tutorial1').setScale(0.35);
+    this.optionsBtn = new MenuButton(this, 550, 280, 'options-btn', 'options-btn-h', 'optionsscene').setScale(0.35);
+    this.leaderBtn = new MenuButton(this, 550, 340, 'leader-btn', 'leader-btn-h', 'gamescene').setScale(0.35);
+    this.creditsBtn = new MenuButton(this, 550, 400, 'credits-btn', 'credits-btn-h', 'gamescene').setScale(0.35);
 
     this.model = this.sys.game.globals.model;
 

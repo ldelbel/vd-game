@@ -8,7 +8,8 @@ import {Tutorial4} from '../scenes/tutorial4';
 import {Tutorial5} from '../scenes/tutorial5';
 import {Tutorial6} from '../scenes/tutorial6';
 import {Tutorial7} from '../scenes/tutorial7';
-import { OptionsScene } from '../scenes/options';
+import {OptionsScene} from '../scenes/options';
+import {Pause} from '../scenes/pause';
 
 
 const config = {
@@ -39,7 +40,8 @@ const config = {
     Tutorial5,
     Tutorial6,
     Tutorial7,
-    GameScene]
+    GameScene,
+    Pause]
 };
 
 export default config;

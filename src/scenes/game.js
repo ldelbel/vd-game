@@ -24,6 +24,7 @@ export var GameScene =  new Phaser.Class ({
         this.gameSong = this.sound.add('gamesong', {volume: 0.3, loop: true});
         this.gameSong.play();
       }
+      this.shoot = this.sound.add('shoot', {volume: 0.3});
 
     this.physics.world.setBounds(0,100,1050,450);
     // Defining important variables
@@ -124,20 +125,27 @@ export var GameScene =  new Phaser.Class ({
     gameState.antibody1.fireAngle = 0;
     gameState.antibody1.fireRate = 400;
     gameState.antibody1.trackSprite(gameState.lympho,0,0);
-
+    gameState.antibody1.on('fire', () => {
+      this.shoot.play()
+    })
     gameState.antibody2 = this.add.weapon(-1, 'antibody2');
     gameState.antibody2.bulletAngleOffset = 90;
     gameState.antibody2.bulletSpeed = 400;
     gameState.antibody2.fireAngle = 0;
     gameState.antibody2.fireRate = 400;
     gameState.antibody2.trackSprite(gameState.lympho,0,0);
-
+    gameState.antibody2.on('fire', () => {
+      this.shoot.play()
+    })
     gameState.antibody3 = this.add.weapon(-1, 'antibody3');
     gameState.antibody3.bulletAngleOffset = 90;
     gameState.antibody3.bulletSpeed = 400;
     gameState.antibody3.fireAngle = 0;
     gameState.antibody3.fireRate = gameState.antibody1.fireRate - 100;
     gameState.antibody3.trackSprite(gameState.lympho,0,0);
+    gameState.antibody3.on('fire', () => {
+      this.shoot.play()
+    })
 
     gameState.currentAntibody = gameState.antibody1;
 
@@ -425,17 +433,26 @@ export var GameScene =  new Phaser.Class ({
       }).setOrigin(1,0);
 
     this.updateScore = () => {
-      this.displayScore.setText(`${gameState.control.score}`)
+      this.displayScore.setText(`${gameState.control.score}`);
     }
+
+    this.pauseGame = () => {
+      if(this.scene.settings.status == 5) {
+        console.log(this.scene)
+        this.scene.pause('gamescene');
+        this.scene.launch('pause');
+      }
+    }
+
+    this.unpauseGame = () => {
+      this.scene.resume();
+    }
+
+    this.input.keyboard.on('keydown_P', this.pauseGame, this);
+    
   },
 
   update: function() {
-    // this.scene.pause()
-    
-    // if(this.timer !== 0) {
-    //   console.log(10 - Math.trunc(this.timer.getElapsedSeconds()))
-    // }
-
     gameState.action.updateLifeBar(this.lifeBar);
     gameState.action.updateEnergyBar(this.energyBar);
     gameState.action.updateGammaBar(this.gammaBar);
