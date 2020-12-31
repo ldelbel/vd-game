@@ -20,7 +20,7 @@ export var MenuScene = new Phaser.Class({
     this.creditsBtn = new MenuButton(this, 550, 400, 'credits-btn', 'credits-btn-h', 'gamescene').setScale(0.35);
 
     this.model = this.sys.game.globals.model;
-
+    console.log(this)
     if (this.model.musicOn === true && this.model.bgMusicPlaying === false) {
       this.bgMusic = this.sound.add(
         'menusong',
@@ -30,7 +30,5 @@ export var MenuScene = new Phaser.Class({
       this.model.bgMusicPlaying = true;
       this.sys.game.globals.bgMusic = this.bgMusic;
     }
-
-    console.log(this.bgMusic)
   },
 });

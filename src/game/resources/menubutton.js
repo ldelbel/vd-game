@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import soundState from '../soundstate'
 
 export default class MenuButton extends Phaser.GameObjects.Container {
   constructor(scene, x, y, key1, key2, targetScene) {
@@ -15,12 +16,16 @@ export default class MenuButton extends Phaser.GameObjects.Container {
 
     this.button.on('pointerdown', () => {
       this.scene.scene.start(targetScene);
-      this.click.play();
+      if(soundState.soundOn === true){
+        this.click.play();
+      }
     });
 
     this.button.on('pointerover', () => {
-      this.button.setTexture(key2);   
-      this.hover.play();   
+      this.button.setTexture(key2);
+      if(soundState.soundOn === true){
+        this.hover.play();   
+      }
     });
 
     this.button.on('pointerout', () => {

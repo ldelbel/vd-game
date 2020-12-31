@@ -115,7 +115,6 @@ export var PreloaderScene = new Phaser.Class({
   create: function() {
     const model = new Model();
     this.sys.game.globals = { model };
-    console.log(this.sys.game.globals)
     this.loadingbar_bg.destroy();
 		this.loadingbar_fill.destroy();
 		this.preloadSprite = null;

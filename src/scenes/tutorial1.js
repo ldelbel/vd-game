@@ -19,16 +19,4 @@ export var Tutorial1 = new Phaser.Class({
     this.skipBtn = new Button(this, 800, 550, 'skip-btn', 'skip-btn', 'gamescene').setScale(0.35);
 
   },
-
-  doNextTutor: function ()
-  {
-    this.scene.start('tutorscene');
-  },
-
-  doStart: function ()
-  {
-      console.log('menuscene doStart was called!');
-  this.scene.start('gamescene');
-  }
-
 });

@@ -438,14 +438,9 @@ export var GameScene =  new Phaser.Class ({
 
     this.pauseGame = () => {
       if(this.scene.settings.status == 5) {
-        console.log(this.scene)
         this.scene.pause('gamescene');
         this.scene.launch('pause');
       }
-    }
-
-    this.unpauseGame = () => {
-      this.scene.resume();
     }
 
     this.input.keyboard.on('keydown_P', this.pauseGame, this);
