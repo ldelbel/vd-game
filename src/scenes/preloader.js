@@ -56,6 +56,7 @@ export var PreloaderScene = new Phaser.Class({
     this.load.image('credits-btn', '../assets/btn-credits.png');
     this.load.image('credits-btn-h', '../assets/btn-credits-h.png');
     this.load.image('blank-panel', '../assets/blank-panel.png');
+    this.load.image('credits-panel', '../assets/credits-panel.png');
     this.load.image('leaderboard-title', '../assets/leaderboard-title.png');
     this.load.image('leader-list', '../assets/leader-list.png');   
 

@@ -12,6 +12,7 @@ import {OptionsScene} from '../scenes/options';
 import {Pause} from '../scenes/pause';
 import {GameOver} from '../scenes/gameover';
 import {Leaderboard} from '../scenes/leaderboard';
+import {Credits} from '../scenes/credits';
 
 
 const config = {
@@ -45,7 +46,8 @@ const config = {
     GameScene,
     Pause,
     GameOver,
-    Leaderboard]
+    Leaderboard,
+    Credits]
 };
 
 export default config;
