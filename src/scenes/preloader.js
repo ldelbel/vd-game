@@ -55,6 +55,10 @@ export var PreloaderScene = new Phaser.Class({
     this.load.image('leader-btn-h', '../assets/btn-leader-h.png');
     this.load.image('credits-btn', '../assets/btn-credits.png');
     this.load.image('credits-btn-h', '../assets/btn-credits-h.png');
+    this.load.image('blank-panel', '../assets/blank-panel.png');
+    this.load.image('leaderboard-title', '../assets/leaderboard-title.png');
+    this.load.image('leader-list', '../assets/leader-list.png');   
+
   
     this.load.image('tutorial1', '../assets/tutorial1.png');
     this.load.image('tutorial2', '../assets/tutorial2.png');
@@ -97,13 +101,15 @@ export var PreloaderScene = new Phaser.Class({
     this.load.image('covid-green', '../assets/covid-green-min.png');
     this.load.image('glucose', '../assets/glucose.png');
     this.load.image('interferon', '../assets/interferon.png');
-    this.load.image('test', '../assets/test.jpg');
     this.load.image('btn', '../assets/button.jpg');
     this.load.image('btn1', '../assets/button1.png');
     this.load.image('checked', '../assets/checked.png');
     this.load.image('unchecked', '../assets/unchecked.png');
     this.load.image('music-enabled', '../assets/music-enabled.png');
     this.load.image('sound-enabled', '../assets/sound-enabled.png');
+
+    this.load.image('leaderboard-btn', '../assets/leaderboard.png');
+    this.load.image('gameover', '../assets/gameover.png');
 
     this.load.audio('hover','../assets/audio/hover_effect.mp3');
     this.load.audio('click','../assets/audio/click_effect.mp3');

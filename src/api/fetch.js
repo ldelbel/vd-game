@@ -1,7 +1,9 @@
-const Leaderboard = {
+import regeneratorRuntime from "regenerator-runtime";
+
+const LeaderboardContent = {
   URL: 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/JuiTJsSvGpUjqxus8duh/scores',
   submitScore: (username, score) => {
-    fetch(Leaderboard.URL, 
+    fetch(LeaderboardContent.URL, 
       {
         method: 'POST',
         mode: 'cors',
@@ -16,7 +18,7 @@ const Leaderboard = {
   },
   getScores: async () => {
     try {
-      const response = await fetch(Leaderboard.URL, { mode: 'cors'});
+      const response = await fetch(LeaderboardContent.URL, { mode: 'cors'});
       const result = response.json();
       return result;
     } catch(err) {
@@ -25,4 +27,4 @@ const Leaderboard = {
   }
 }
 
-export default Leaderboard;
+export default LeaderboardContent;

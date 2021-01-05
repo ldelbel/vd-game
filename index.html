@@ -6,11 +6,62 @@
   <title>Document</title>
   <style>
     body {
-      background-color: black;
+      background-color: rgb(65, 0, 0);
+    }
+
+    img {
+      width: 32em;
+      margin-bottom: 4em;
+    }
+
+    .center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .col-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    form {
+      display: flex;
+      align-items: center;
+    }
+
+    input {
+      border: none;
+      outline: none;
+      height: 3.5em;
+    }
+
+    input[type=text] {
+      width: 20em;
+    }
+
+    input[type=submit] {
+      width: 4em;
+      height: 2.02em;
+      background-color: #00D258;
+      color: white;
+      font-weight: 900;
+      font-size: 1.5em;
     }
   </style>
 </head>
-<body>
+<body id="body" class="center">
+  <div id="hide" class="col-center">
+    <img src="assets/logo.png" alt="logo">
+    <h2>Welcome, gamer! Please choose a name.</h2>
+    <form action="#">
+      <input id="name" type="text" required>
+      <input id="submit" type="submit">
+    </form>
+  </div>
     <script src="app.bundle.js"></script>
 </body>
 </html>

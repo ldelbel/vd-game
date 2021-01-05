@@ -1,4 +1,5 @@
 import {gameState} from '../game/gamestate'
+import soundState from '../game/soundstate'
 
 export var GameScene =  new Phaser.Class ({
 
@@ -12,7 +13,6 @@ export var GameScene =  new Phaser.Class ({
   },
   
   create: function() {
-    // Install Weapon Plugin
     this.plugins.installScenePlugin(
       'WeaponPlugin',
       WeaponPlugin.WeaponPlugin,
@@ -27,7 +27,6 @@ export var GameScene =  new Phaser.Class ({
       this.shoot = this.sound.add('shoot', {volume: 0.3});
 
     this.physics.world.setBounds(0,100,1050,450);
-    // Defining important variables
     gameState.gameWidth = this.game.config.width;
     gameState.gameHeight = this.game.config.height;
 
@@ -126,7 +125,9 @@ export var GameScene =  new Phaser.Class ({
     gameState.antibody1.fireRate = 400;
     gameState.antibody1.trackSprite(gameState.lympho,0,0);
     gameState.antibody1.on('fire', () => {
-      this.shoot.play()
+      if(soundState.soundOn === true){
+      this.shoot.play();
+      }
     })
     gameState.antibody2 = this.add.weapon(-1, 'antibody2');
     gameState.antibody2.bulletAngleOffset = 90;
@@ -135,7 +136,9 @@ export var GameScene =  new Phaser.Class ({
     gameState.antibody2.fireRate = 400;
     gameState.antibody2.trackSprite(gameState.lympho,0,0);
     gameState.antibody2.on('fire', () => {
-      this.shoot.play()
+      if(soundState.soundOn === true){
+        this.shoot.play()
+      }
     })
     gameState.antibody3 = this.add.weapon(-1, 'antibody3');
     gameState.antibody3.bulletAngleOffset = 90;
@@ -144,7 +147,9 @@ export var GameScene =  new Phaser.Class ({
     gameState.antibody3.fireRate = gameState.antibody1.fireRate - 100;
     gameState.antibody3.trackSprite(gameState.lympho,0,0);
     gameState.antibody3.on('fire', () => {
-      this.shoot.play()
+      if(soundState.soundOn === true){
+        this.shoot.play()
+      }
     })
 
     gameState.currentAntibody = gameState.antibody1;
@@ -357,14 +362,14 @@ export var GameScene =  new Phaser.Class ({
 
     function interferonCreate() {
       let random = Math.random() - Math.random();
-      let interferon = gameState.interferonGammas.create(gameState.gameWidth, 180 + Math.random() * 280, 'interferon').setScale(0.15);
+      let interferon = gameState.interferonGammas.create(gameState.gameWidth, 180 + Math.random() * 280, 'interferon').setScale(0.03);
       interferon.setVelocity(-300, 0);
     }
 
     function interferonCreate2() {
       if(gameState.control.difficulty > 1){
         let random = Math.random() - Math.random();
-        let interferon = gameState.interferonGammas.create(gameState.gameWidth, 180 + Math.random() * 280, 'interferon').setScale(0.15);
+        let interferon = gameState.interferonGammas.create(gameState.gameWidth, 180 + Math.random() * 280, 'interferon').setScale(0.03);
         interferon.setVelocity(-300, 0);
       }
     }
@@ -410,13 +415,10 @@ export var GameScene =  new Phaser.Class ({
     this.physics.add.collider(gameState.virus3,  gameState.antibody1.bullets, hitVirusSoft, null, this);
     this.physics.add.collider(gameState.virus3,  gameState.antibody2.bullets, hitVirusSoft, null, this);
     this.physics.add.collider(gameState.virus3,  gameState.antibody3.bullets, hitVirusVeryHard, null, this);
-
-
     this.physics.add.collider(gameState.lympho, gameState.lines);
     this.physics.add.collider(gameState.virus1, gameState.lines);
     this.physics.add.collider(gameState.virus2, gameState.lines);
     this.physics.add.collider(gameState.virus3, gameState.lines);
-
     this.physics.add.overlap(gameState.virus1, this.control,  gameState.action.takeDamage, null, this);
     this.physics.add.overlap(gameState.virus2, this.control,  gameState.action.takeDamage, null, this);
     this.physics.add.overlap(gameState.virus3, this.control,  gameState.action.takeDamage, null, this);
@@ -443,8 +445,12 @@ export var GameScene =  new Phaser.Class ({
       }
     }
 
+    this.gameOver = function() {
+      this.scene.pause();
+      this.gameSong.pause();
+      this.scene.launch('gameover');
+    }
     this.input.keyboard.on('keydown_P', this.pauseGame, this);
-    
   },
 
   update: function() {
@@ -500,5 +506,10 @@ export var GameScene =  new Phaser.Class ({
 
       this.updateScore()
 
-    }
+      if(gameState.control.hostHealth <= 0){
+        this.gameOver();
+      }
+    },
+
+
 })

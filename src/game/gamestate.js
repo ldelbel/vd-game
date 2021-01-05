@@ -2,7 +2,7 @@ export var gameState = {
   control: {
     glucose: 0,
     gamma: 0,
-    hostHealth: 500,
+    hostHealth: 50,
     score: 0,
     difficulty: 1    
   },

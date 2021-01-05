@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "phaser": "^3.24.1",
-    "phaser3-weapon-plugin": "^2.0.1"
+    "phaser3-weapon-plugin": "^2.0.1",
+    "regenerator-runtime": "^0.13.7"
   }
 }

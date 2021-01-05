@@ -1,5 +1,3 @@
-import Button from '../game/resources/button'
-
 export var Pause = new Phaser.Class({
 
   Extends: Phaser.Scene,

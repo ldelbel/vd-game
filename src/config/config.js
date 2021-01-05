@@ -10,6 +10,8 @@ import {Tutorial6} from '../scenes/tutorial6';
 import {Tutorial7} from '../scenes/tutorial7';
 import {OptionsScene} from '../scenes/options';
 import {Pause} from '../scenes/pause';
+import {GameOver} from '../scenes/gameover';
+import {Leaderboard} from '../scenes/leaderboard';
 
 
 const config = {
@@ -41,7 +43,9 @@ const config = {
     Tutorial6,
     Tutorial7,
     GameScene,
-    Pause]
+    Pause,
+    GameOver,
+    Leaderboard]
 };
 
 export default config;
