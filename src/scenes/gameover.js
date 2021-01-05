@@ -1,5 +1,6 @@
 import Button from '../game/resources/button'
 import {gameState} from '../game/gamestate'
+import LeaderboardContent from '../api/fetch'
 
 export var GameOver = new Phaser.Class({
 
@@ -22,6 +23,7 @@ export var GameOver = new Phaser.Class({
       fontWeight: 'bold',
     }).setOrigin(1,0);
 
+    LeaderboardContent.submitScore(localStorage.getItem('playerName'), gameState.control.score)
 
   },
 
