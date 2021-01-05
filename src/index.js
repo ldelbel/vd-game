@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import config from './config/config';
-
+import 'phaser3-weapon-plugin/dist/WeaponPlugin';
 
 const hide = document.getElementById('hide');
 const name = document.getElementById('name');
