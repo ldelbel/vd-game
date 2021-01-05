@@ -4,17 +4,15 @@ export var Pause = new Phaser.Class({
 
   initialize:
 
-  function Pause ()
-  {
-      Phaser.Scene.call(this, { key: 'pause' });
+  function Pause() {
+    Phaser.Scene.call(this, { key: 'pause' });
   },
 
-  create: function ()
-  {
+  create() {
     this.unpauseGame = () => {
       this.scene.resume('gamescene');
       this.scene.stop('pause');
-    }
+    };
 
     this.input.keyboard.on('keydown_P', this.unpauseGame, this);
   },

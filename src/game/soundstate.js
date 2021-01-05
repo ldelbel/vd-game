@@ -1,5 +1,5 @@
-var soundState = {
-  soundOn: true
-}
+const soundState = {
+  soundOn: true,
+};
 
 export default soundState;

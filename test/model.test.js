@@ -11,7 +11,7 @@ describe('Model instance', () => {
   });
 
   it('inherits all properties', () => {
-    for(prop in model){
+    for (prop in model) {
       expect(props).toContain(prop);
     }
   });

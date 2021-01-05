@@ -1,52 +1,47 @@
-import Model from '../model'
+import Model from '../model';
 
 export var PreloaderScene = new Phaser.Class({
 
   Extends: Phaser.Scene,
 
-  initialize: function Preloader ()
-	{
-		Phaser.Scene.call(this, {
-			key: 'preloader',
-			pack: {
-				files: [
-					{ type: 'image', key: 'loadingbar_bg', url: '../assets/loadingbar_bg.png' },
-					{ type: 'image', key: 'loadingbar_fill', url: '../assets/loadingbar_fill.png' }
-				]
-			}
-		});
-	},
-	
-	setPreloadSprite: function (sprite)
-	{
-		this.preloadSprite = { sprite: sprite, width: sprite.width, height: sprite.height };
-		sprite.visible = true;
-		this.load.on('progress', this.onProgress, this );
-		this.load.on('fileprogress', this.onFileProgress, this );
-	},
-	
-	onProgress: function (value) {
-
-		if (this.preloadSprite)
-		{
-			var w = Math.floor(this.preloadSprite.width * value);
-			console.log('onProgress: value=' + value + " w=" + w);
-			this.preloadSprite.sprite.frame.width    = (w <= 0 ? 1 : w);
-			this.preloadSprite.sprite.frame.cutWidth = w;
-			this.preloadSprite.sprite.frame.updateUVs();
-		}
-	},
-	
-	onFileProgress: function (file) {
-		console.log('onFileProgress: file.key=' + file.key);
+  initialize: function Preloader() {
+    Phaser.Scene.call(this, {
+      key: 'preloader',
+      pack: {
+        files: [
+          { type: 'image', key: 'loadingbar_bg', url: '../assets/loadingbar_bg.png' },
+          { type: 'image', key: 'loadingbar_fill', url: '../assets/loadingbar_fill.png' },
+        ],
+      },
+    });
   },
-  
-  preload: function ()
-	{
-		this.loadingbar_bg   = this.add.sprite(550, 300, "loadingbar_bg");
-		this.loadingbar_fill = this.add.sprite(550, 300, "loadingbar_fill");
-		this.setPreloadSprite(this.loadingbar_fill);
-    this.load.image('menu-panel', '../assets/panel-menu.png');   
+
+  setPreloadSprite(sprite) {
+    this.preloadSprite = { sprite, width: sprite.width, height: sprite.height };
+    sprite.visible = true;
+    this.load.on('progress', this.onProgress, this);
+    this.load.on('fileprogress', this.onFileProgress, this);
+  },
+
+  onProgress(value) {
+    if (this.preloadSprite) {
+      const w = Math.floor(this.preloadSprite.width * value);
+      console.log(`onProgress: value=${value} w=${w}`);
+      this.preloadSprite.sprite.frame.width = (w <= 0 ? 1 : w);
+      this.preloadSprite.sprite.frame.cutWidth = w;
+      this.preloadSprite.sprite.frame.updateUVs();
+    }
+  },
+
+  onFileProgress(file) {
+    console.log(`onFileProgress: file.key=${file.key}`);
+  },
+
+  preload() {
+    this.loadingbar_bg = this.add.sprite(550, 300, 'loadingbar_bg');
+    this.loadingbar_fill = this.add.sprite(550, 300, 'loadingbar_fill');
+    this.setPreloadSprite(this.loadingbar_fill);
+    this.load.image('menu-panel', '../assets/panel-menu.png');
     this.load.image('play-btn', '../assets/btn-play.png');
     this.load.image('play-btn-h', '../assets/btn-play-h.png');
     this.load.image('options-btn', '../assets/btn-options.png');
@@ -58,9 +53,9 @@ export var PreloaderScene = new Phaser.Class({
     this.load.image('blank-panel', '../assets/blank-panel.png');
     this.load.image('credits-panel', '../assets/credits-panel.png');
     this.load.image('leaderboard-title', '../assets/leaderboard-title.png');
-    this.load.image('leader-list', '../assets/leader-list.png');   
+    this.load.image('leader-list', '../assets/leader-list.png');
 
-  
+
     this.load.image('tutorial1', '../assets/tutorial1.png');
     this.load.image('tutorial2', '../assets/tutorial2.png');
     this.load.image('tutorial3', '../assets/tutorial3.png');
@@ -87,9 +82,9 @@ export var PreloaderScene = new Phaser.Class({
     this.load.image('gammabar', '../assets/gammabar.png');
     this.load.image('line', '../assets/line.png');
     this.load.image('vertical-line', '../assets/vertical-line.png');
-    this.load.spritesheet('lympho1', '../assets/lymphocyte-blue.png', {frameWidth: 272, frameHeight: 237}, 6);
-    this.load.spritesheet('lympho2', '../assets/lymphocyte-yellow.png', {frameWidth: 272, frameHeight: 237}, 6);
-    this.load.spritesheet('lympho3', '../assets/lymphocyte-green.png', {frameWidth: 272, frameHeight: 237}, 6);
+    this.load.spritesheet('lympho1', '../assets/lymphocyte-blue.png', { frameWidth: 272, frameHeight: 237 }, 6);
+    this.load.spritesheet('lympho2', '../assets/lymphocyte-yellow.png', { frameWidth: 272, frameHeight: 237 }, 6);
+    this.load.spritesheet('lympho3', '../assets/lymphocyte-green.png', { frameWidth: 272, frameHeight: 237 }, 6);
     this.load.image('red-cell', '../assets/red-cell.png');
     this.load.image('white-cell', '../assets/white-cell.png');
     this.load.image('antibody1', '../assets/antibody1-small.png');
@@ -115,20 +110,20 @@ export var PreloaderScene = new Phaser.Class({
     this.load.image('leaderboard-btn', '../assets/leaderboard.png');
     this.load.image('gameover', '../assets/gameover.png');
 
-    this.load.audio('hover','../assets/audio/hover_effect.mp3');
-    this.load.audio('click','../assets/audio/click_effect.mp3');
-    this.load.audio('shoot','../assets/audio/shoot_effect.mp3');
-    this.load.audio('menusong','../assets/audio/menu_song.mp3');
-    this.load.audio('gamesong','../assets/audio/game_song.mp3');
+    this.load.audio('hover', '../assets/audio/hover_effect.mp3');
+    this.load.audio('click', '../assets/audio/click_effect.mp3');
+    this.load.audio('shoot', '../assets/audio/shoot_effect.mp3');
+    this.load.audio('menusong', '../assets/audio/menu_song.mp3');
+    this.load.audio('gamesong', '../assets/audio/game_song.mp3');
   },
-  
-  create: function() {
+
+  create() {
     const model = new Model();
     this.sys.game.globals = { model };
     this.loadingbar_bg.destroy();
-		this.loadingbar_fill.destroy();
-		this.preloadSprite = null;
+    this.loadingbar_fill.destroy();
+    this.preloadSprite = null;
     this.scene.start('menuscene');
-  }
+  },
 
-})
+});

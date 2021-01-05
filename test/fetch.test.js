@@ -1,12 +1,12 @@
-const LeaderboardContent = require('../src/api/fetch')
+const LeaderboardContent = require('../src/api/fetch');
 
 describe('LeaderboardContent.getScores', () => {
   test('the promise resolves in a JSON file', async () => {
     try {
       const result = await LeaderboardContent.getScores();
       expect(typeof result).toBe('JSON');
-    } catch(err) {
-      return err
+    } catch (err) {
+      return err;
     }
   });
 
@@ -14,8 +14,8 @@ describe('LeaderboardContent.getScores', () => {
     try {
       const result = await LeaderboardContent.getScores();
       expect(typeof JSON.parse(result)).toBe(Object);
-    } catch(err) {
-      return err
+    } catch (err) {
+      return err;
     }
   });
 
@@ -24,8 +24,8 @@ describe('LeaderboardContent.getScores', () => {
       const result = await LeaderboardContent.getScores();
       const parsed = JSON.parse(result);
       expect(typeof parsed.result).toBe(Array);
-    } catch(err) {
-      return err
+    } catch (err) {
+      return err;
     }
   });
 });
@@ -33,17 +33,17 @@ describe('LeaderboardContent.getScores', () => {
 describe('LeaderboardContent.submitScores', () => {
   test('after submission, the data is retrievable from API', async () => {
     try {
-      LeaderboardContent.submitScore('Jest','1');
+      LeaderboardContent.submitScore('Jest', '1');
       const result = await LeaderboardContent.getScores();
       const object = JSON.parse(result);
       const array = object.result;
-      let list = []
-      array.forEach( (item) => {
-        list.push(item.user)
-      })
+      const list = [];
+      array.forEach((item) => {
+        list.push(item.user);
+      });
       expect(list).toContain('Jest');
-    } catch(err) {
-      return err
+    } catch (err) {
+      return err;
     }
   });
-})
+});

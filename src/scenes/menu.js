@@ -1,4 +1,4 @@
-import MenuButton from '../game/resources/menubutton'
+import MenuButton from '../game/resources/menubutton';
 
 export var MenuScene = new Phaser.Class({
 
@@ -6,14 +6,12 @@ export var MenuScene = new Phaser.Class({
 
   initialize:
 
-  function MenuScene ()
-  {
-      Phaser.Scene.call(this, { key: 'menuscene' });
+  function MenuScene() {
+    Phaser.Scene.call(this, { key: 'menuscene' });
   },
 
-  create: function ()
-  {
-    const panel = this.add.image(550,300, 'menu-panel').setScale(0.35);
+  create() {
+    const panel = this.add.image(550, 300, 'menu-panel').setScale(0.35);
     this.playBtn = new MenuButton(this, 550, 220, 'play-btn', 'play-btn-h', 'tutorial1').setScale(0.35);
     this.optionsBtn = new MenuButton(this, 550, 280, 'options-btn', 'options-btn-h', 'optionsscene').setScale(0.35);
     this.leaderBtn = new MenuButton(this, 550, 340, 'leader-btn', 'leader-btn-h', 'leaderboardscene').setScale(0.35);
