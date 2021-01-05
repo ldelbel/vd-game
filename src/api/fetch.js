@@ -1,4 +1,4 @@
-import regeneratorRuntime from "regenerator-runtime";
+const regeneratorRuntime = require("regenerator-runtime");
 
 const LeaderboardContent = {
   URL: 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/JuiTJsSvGpUjqxus8duh/scores',
@@ -27,4 +27,4 @@ const LeaderboardContent = {
   }
 }
 
-export default LeaderboardContent;
+module.exports = LeaderboardContent;

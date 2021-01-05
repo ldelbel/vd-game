@@ -1,10 +1,10 @@
-export default class Model {
+class Model {
   constructor() {
     this._soundOn = true;
     this._musicOn = true;
     this._bgMusicPlaying = false;
   }
- 
+
   set musicOn(value) {
     this._musicOn = value;
   }
@@ -29,3 +29,5 @@ export default class Model {
     return this._bgMusicPlaying;
   }
 }
+
+module.exports = Model;

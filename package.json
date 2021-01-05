@@ -11,6 +11,7 @@
     "babel-loader": "^8.2.2",
     "babel-preset-env": "^1.7.0",
     "copy-webpack-plugin": "^6.4.0",
+    "jest": "^26.6.3",
     "webpack": "^5.10.0",
     "webpack-cli": "3",
     "webpack-dev-server": "^3.11.0"
@@ -19,5 +20,8 @@
     "phaser": "^3.24.1",
     "phaser3-weapon-plugin": "^2.0.1",
     "regenerator-runtime": "^0.13.7"
+  },
+  "scripts": {
+    "test": "jest"
   }
 }

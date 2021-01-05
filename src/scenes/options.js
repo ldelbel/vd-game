@@ -66,6 +66,5 @@ export var OptionsScene = new Phaser.Class({
         soundState.soundOn = true;
       }
     })
-
   },
 });
