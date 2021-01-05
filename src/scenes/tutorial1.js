@@ -1,6 +1,7 @@
+import Phaser from 'phaser';
 import Button from '../game/resources/button';
 
-export var Tutorial1 = new Phaser.Class({
+const Tutorial1 = new Phaser.Class({
 
   Extends: Phaser.Scene,
 
@@ -17,3 +18,5 @@ export var Tutorial1 = new Phaser.Class({
     this.skipBtn = new Button(this, 800, 550, 'skip-btn', 'skip-btn', 'gamescene').setScale(0.35);
   },
 });
+
+export default Tutorial1;

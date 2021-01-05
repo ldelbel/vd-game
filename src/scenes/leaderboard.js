@@ -1,7 +1,8 @@
-import LeaderboardContent from '../api/fetch.js';
+import Phaser from 'phaser';
+import LeaderboardContent from '../api/fetch';
 import Button from '../game/resources/button';
 
-export var Leaderboard = new Phaser.Class({
+const Leaderboard = new Phaser.Class({
 
   Extends: Phaser.Scene,
 
@@ -28,7 +29,7 @@ export var Leaderboard = new Phaser.Class({
         const fetch = await LeaderboardContent.getScores();
         let array = fetch.result;
         array = array.sort((a, b) => b.score - a.score);
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < 9; i += 1) {
           let color = '';
           switch (i) {
             case 0:
@@ -60,6 +61,7 @@ export var Leaderboard = new Phaser.Class({
             }).setOrigin(1, 0);
           }
         }
+        return array;
       } catch (err) {
         return err;
       }
@@ -70,3 +72,5 @@ export var Leaderboard = new Phaser.Class({
 
 
 });
+
+export default Leaderboard;

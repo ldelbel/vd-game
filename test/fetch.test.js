@@ -32,12 +32,12 @@ describe('LeaderboardContent.getScores', () => {
 
 describe('LeaderboardContent.submitScores', () => {
   test('after submission, the data is retrievable from API', async () => {
+    const list = [];
     try {
       LeaderboardContent.submitScore('Jest', '1');
       const result = await LeaderboardContent.getScores();
       const object = JSON.parse(result);
       const array = object.result;
-      const list = [];
       array.forEach((item) => {
         list.push(item.user);
       });

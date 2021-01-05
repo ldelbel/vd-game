@@ -1,6 +1,7 @@
+import Phaser from 'phaser';
 import Button from '../game/resources/button';
 
-export var Tutorial7 = new Phaser.Class({
+const Tutorial7 = new Phaser.Class({
 
   Extends: Phaser.Scene,
 
@@ -17,14 +18,6 @@ export var Tutorial7 = new Phaser.Class({
     // this.nextBtn = new Button(this, 600, 500, 'next-btn', 'next-btn', 'tutorial8').setScale(0.35);
     this.skipBtn = new Button(this, 800, 550, 'skip-btn', 'skip-btn', 'gamescene').setScale(0.35);
   },
-
-  doNextTutor() {
-    this.scene.start('tutorscene');
-  },
-
-  doStart() {
-    console.log('menuscene doStart was called!');
-    this.scene.start('gamescene');
-  },
-
 });
+
+export default Tutorial7;

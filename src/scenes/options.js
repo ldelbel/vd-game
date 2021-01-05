@@ -1,7 +1,8 @@
+import Phaser from 'phaser';
 import Button from '../game/resources/button';
 import soundState from '../game/soundstate';
 
-export var OptionsScene = new Phaser.Class({
+const OptionsScene = new Phaser.Class({
 
   Extends: Phaser.Scene,
 
@@ -13,7 +14,6 @@ export var OptionsScene = new Phaser.Class({
 
   create() {
     this.model = this.sys.game.globals.model;
-    console.log(this.model);
     const panel = this.add.image(550, 300, 'menu-panel').setScale(0.35);
     const musicEnabled = this.add.image(450, 225, 'music-enabled').setScale(0.15).setOrigin(0, 0);
     const soundEnabled = this.add.image(450, 295, 'sound-enabled').setScale(0.15).setOrigin(0, 0);
@@ -35,7 +35,7 @@ export var OptionsScene = new Phaser.Class({
     this.bgMusic = this.sys.game.globals.bgMusic;
 
     musicCheck.on('pointerdown', () => {
-      if (musicCheck.texture.key == 'checked') {
+      if (musicCheck.texture.key === 'checked') {
         musicCheck.setTexture('unchecked');
         musicCheck.y = 214;
         this.model.musicOn = false;
@@ -51,7 +51,7 @@ export var OptionsScene = new Phaser.Class({
     });
 
     soundCheck.on('pointerdown', () => {
-      if (soundCheck.texture.key == 'checked') {
+      if (soundCheck.texture.key === 'checked') {
         soundCheck.setTexture('unchecked');
         soundCheck.y = 284;
         this.model.soundOn = false;
@@ -65,3 +65,5 @@ export var OptionsScene = new Phaser.Class({
     });
   },
 });
+
+export default OptionsScene;

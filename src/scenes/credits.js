@@ -1,6 +1,7 @@
+import Phaser from 'phaser';
 import Button from '../game/resources/button';
 
-export var Credits = new Phaser.Class({
+const Credits = new Phaser.Class({
 
   Extends: Phaser.Scene,
 
@@ -17,3 +18,5 @@ export var Credits = new Phaser.Class({
 
 
 });
+
+export default Credits;

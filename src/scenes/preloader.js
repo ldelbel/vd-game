@@ -1,6 +1,7 @@
+import Phaser from 'phaser';
 import Model from '../model';
 
-export var PreloaderScene = new Phaser.Class({
+const PreloaderScene = new Phaser.Class({
 
   Extends: Phaser.Scene,
 
@@ -20,21 +21,15 @@ export var PreloaderScene = new Phaser.Class({
     this.preloadSprite = { sprite, width: sprite.width, height: sprite.height };
     sprite.visible = true;
     this.load.on('progress', this.onProgress, this);
-    this.load.on('fileprogress', this.onFileProgress, this);
   },
 
   onProgress(value) {
     if (this.preloadSprite) {
       const w = Math.floor(this.preloadSprite.width * value);
-      console.log(`onProgress: value=${value} w=${w}`);
       this.preloadSprite.sprite.frame.width = (w <= 0 ? 1 : w);
       this.preloadSprite.sprite.frame.cutWidth = w;
       this.preloadSprite.sprite.frame.updateUVs();
     }
-  },
-
-  onFileProgress(file) {
-    console.log(`onFileProgress: file.key=${file.key}`);
   },
 
   preload() {
@@ -127,3 +122,5 @@ export var PreloaderScene = new Phaser.Class({
   },
 
 });
+
+export default PreloaderScene;

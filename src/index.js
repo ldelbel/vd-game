@@ -1,5 +1,4 @@
-import 'phaser';
-import 'phaser3-weapon-plugin/dist/WeaponPlugin.js';
+import Phaser from 'phaser';
 import config from './config/config';
 
 

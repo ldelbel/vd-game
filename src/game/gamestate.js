@@ -1,4 +1,4 @@
-export var gameState = {
+const gameState = {
   control: {
     glucose: 0,
     gamma: 0,
@@ -41,3 +41,5 @@ export var gameState = {
     },
   },
 };
+
+export default gameState;

@@ -1,4 +1,6 @@
-export var Pause = new Phaser.Class({
+import Phaser from 'phaser';
+
+const Pause = new Phaser.Class({
 
   Extends: Phaser.Scene,
 
@@ -18,3 +20,5 @@ export var Pause = new Phaser.Class({
   },
 
 });
+
+export default Pause;

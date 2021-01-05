@@ -11,9 +11,9 @@ describe('Model instance', () => {
   });
 
   it('inherits all properties', () => {
-    for (prop in model) {
+    Object.keys(model).forEach(prop => {
       expect(props).toContain(prop);
-    }
+    });
   });
 
   it('has default value for properties', () => {

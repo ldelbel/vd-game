@@ -1,8 +1,9 @@
+import Phaser from 'phaser';
 import Button from '../game/resources/button';
-import { gameState } from '../game/gamestate';
+import gameState from '../game/gamestate';
 import LeaderboardContent from '../api/fetch';
 
-export var GameOver = new Phaser.Class({
+const GameOver = new Phaser.Class({
 
   Extends: Phaser.Scene,
 
@@ -25,3 +26,5 @@ export var GameOver = new Phaser.Class({
   },
 
 });
+
+export default GameOver;

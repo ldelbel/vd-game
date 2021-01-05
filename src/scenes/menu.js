@@ -1,6 +1,7 @@
+import Phaser from 'phaser';
 import MenuButton from '../game/resources/menubutton';
 
-export var MenuScene = new Phaser.Class({
+const MenuScene = new Phaser.Class({
 
   Extends: Phaser.Scene,
 
@@ -30,3 +31,5 @@ export var MenuScene = new Phaser.Class({
     }
   },
 });
+
+export default MenuScene;

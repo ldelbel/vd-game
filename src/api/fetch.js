@@ -22,9 +22,7 @@ const LeaderboardContent = {
       const result = response.json();
       return result;
     } catch (err) {
-      if(regeneratorRuntime){
-        return err;
-      }
+      return err;
     }
   },
 };

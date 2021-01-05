@@ -1,7 +1,9 @@
-import { gameState } from '../game/gamestate';
+import Phaser from 'phaser';
+import 'phaser3-weapon-plugin/dist/WeaponPlugin';
+import gameState from '../game/gamestate';
 import soundState from '../game/soundstate';
 
-export var GameScene = new Phaser.Class({
+const GameScene = new Phaser.Class({
 
   Extends: Phaser.Scene,
 
@@ -158,10 +160,10 @@ export var GameScene = new Phaser.Class({
     gameState.currentAntibody = gameState.antibody1;
 
     gameState.switchAntibody = function () {
-      if (gameState.currentAntibody == gameState.antibody1) {
+      if (gameState.currentAntibody === gameState.antibody1) {
         gameState.currentAntibody = gameState.antibody2;
         gameState.lympho.anims.play('lymphoAnimation2', true);
-      } else if (gameState.currentAntibody == gameState.antibody2) {
+      } else if (gameState.currentAntibody === gameState.antibody2) {
         gameState.currentAntibody = gameState.antibody1;
         gameState.lympho.anims.play('lymphoAnimation1', true);
       }
@@ -173,7 +175,7 @@ export var GameScene = new Phaser.Class({
     gameState.virus3 = this.physics.add.group();
 
     function virusCreate1() {
-      for (let i = 0; i < 1 + gameState.control.difficulty; i++) {
+      for (let i = 0; i < 1 + gameState.control.difficulty; i += 1) {
         const random = Math.random() - Math.random();
         const virus1 = gameState.virus1.create(gameState.gameWidth, 150 + Math.random() * 300, 'virus1').setScale(0.2);
         virus1.setVelocity(-80, 100 * random);
@@ -185,7 +187,7 @@ export var GameScene = new Phaser.Class({
     }
 
     function virusCreate2() {
-      for (let i = 0; i < 1 + gameState.control.difficulty; i++) {
+      for (let i = 0; i < 1 + gameState.control.difficulty; i += 1) {
         const random = Math.random() - Math.random();
         const virus1 = gameState.virus2.create(gameState.gameWidth, 150 + Math.random() * 300, 'virus2').setScale(0.2);
         virus1.setVelocity(-80, 100 * random);
@@ -197,7 +199,7 @@ export var GameScene = new Phaser.Class({
     }
 
     function virusCreate11() {
-      for (let i = 0; i < gameState.control.difficulty; i++) {
+      for (let i = 0; i < gameState.control.difficulty; i += 1) {
         const random = Math.random() - Math.random();
         const virus1 = gameState.virus1.create(gameState.gameWidth, 180 + Math.random() * 280, 'virus11').setScale(0.4);
         virus1.setVelocity(-60, 100 * random);
@@ -209,7 +211,7 @@ export var GameScene = new Phaser.Class({
     }
 
     function virusCreate21() {
-      for (let i = 0; i < gameState.control.difficulty; i++) {
+      for (let i = 0; i < gameState.control.difficulty; i += 1) {
         const random = Math.random() - Math.random();
         const virus1 = gameState.virus2.create(gameState.gameWidth, 180 + Math.random() * 280, 'virus21').setScale(0.4);
         virus1.setVelocity(-60, 100 * random);
@@ -222,7 +224,7 @@ export var GameScene = new Phaser.Class({
 
     function virusCreate3() {
       if (gameState.control.score > 200) {
-        for (let i = 0; i < gameState.control.difficulty; i++) {
+        for (let i = 0; i < gameState.control.difficulty; i += 1) {
           const random = Math.random() - Math.random();
           const virus = gameState.virus3.create(gameState.gameWidth, 180 + Math.random() * 280, 'virus3').setScale(0.4);
           virus.setVelocity(-50, 90 * random);
@@ -442,7 +444,7 @@ export var GameScene = new Phaser.Class({
     };
 
     this.pauseGame = () => {
-      if (this.scene.settings.status == 5) {
+      if (this.scene.settings.status === 5) {
         this.scene.pause('gamescene');
         this.scene.launch('pause');
       }
@@ -487,11 +489,11 @@ export var GameScene = new Phaser.Class({
       gameState.lympho.y += 15;
     }
     if (gameState.cursors.space.isDown) {
-      if (gameState.currentAntibody == gameState.antibody1) {
+      if (gameState.currentAntibody === gameState.antibody1) {
         gameState.antibody1.fire();
-      } else if (gameState.currentAntibody == gameState.antibody2) {
+      } else if (gameState.currentAntibody === gameState.antibody2) {
         gameState.antibody2.fire();
-      } else if (gameState.currentAntibody == gameState.antibody3) {
+      } else if (gameState.currentAntibody === gameState.antibody3) {
         gameState.antibody3.fire();
       }
     }
@@ -519,3 +521,5 @@ export var GameScene = new Phaser.Class({
 
 
 });
+
+export default GameScene;
