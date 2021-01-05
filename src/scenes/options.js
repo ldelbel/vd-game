@@ -62,7 +62,7 @@ export var OptionsScene = new Phaser.Class({
       } else {
         soundCheck.setTexture('checked');
         soundCheck.y = 280;
-        this.model.sounOn = true;
+        this.model.soundOn = true;
         soundState.soundOn = true;
       }
     })
