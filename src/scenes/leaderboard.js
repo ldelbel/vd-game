@@ -22,9 +22,7 @@ export var Leaderboard = new Phaser.Class({
     const menuBtn = new Button(this, 400, 550, 'menu-btn', 'menu-btn', 'menuscene').setScale(0.35);
  
 
-    const listing = [{user: '', score: ''},{user: '', score: ''},{user: '', score: ''},
-    {user: '', score: ''},{user: '', score: ''},{user: '', score: ''},{user: '', score: ''}
-  ,{user: '', score: ''},{user: '', score: ''}]
+    const listing = []
  
     
     const data = async () => {
@@ -48,6 +46,7 @@ export var Leaderboard = new Phaser.Class({
               color = 'green';
           }
           if(array[i]) {
+            listing[i] = {user: '', score: ''};
             listing[i].user = this.add.text(500, 108 + 40 * i, `${array[i].user}`, {
               color: color,
               fontSize: '33px',

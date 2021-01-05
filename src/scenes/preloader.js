@@ -75,6 +75,9 @@ export var PreloaderScene = new Phaser.Class({
     this.load.image('background', '../assets/background-new.png');
     this.load.image('score', '../assets/score.png');
     this.load.image('panel', '../assets/panel.png');
+    this.load.image('special-mode', '../assets/special-mode.png');
+    this.load.image('activate', '../assets/activate.png');
+    this.load.image('disabled', '../assets/disabled.png');
     this.load.image('frame-life', '../assets/frame-life.png');
     this.load.image('frame-energy', '../assets/frame-energy.png');
     this.load.image('frame-gamma', '../assets/frame-gamma.png');

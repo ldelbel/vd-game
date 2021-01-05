@@ -47,6 +47,9 @@ export var GameScene =  new Phaser.Class ({
     })
     const scoreBoard = this.add.image(980,570, 'score').setScale(0.25);
     const panel = this.add.image(2,2, 'panel').setOrigin(0,0).setScale(0.45);
+    const specialMode = this.add.image(635,3, 'special-mode').setOrigin(0,0).setScale(0.3);
+    this.specialSwitch = this.add.image(647,40, 'disabled').setOrigin(0,0).setScale(0.3);
+   
     this.lifeBar = this.add.image(194,18,'lifebar').setOrigin(0,0).setScale(0.45);
     this.energyBar = this.add.image(108,67,'energybar').setOrigin(0,0).setScale(0.45);
     this.gammaBar = this.add.image(430,42,'gammabar').setOrigin(0,0).setScale(0.45);
@@ -400,6 +403,7 @@ export var GameScene =  new Phaser.Class ({
     this.gammaOff = function() {
       gameState.currentAntibody = gameState.antibody1;
       gameState.control.gamma = 0;
+      this.specialSwitch.setTexture('disabled');
       gameState.lympho.anims.play('lymphoAnimation1',true)
       this.timer = 0;
     }
@@ -502,6 +506,10 @@ export var GameScene =  new Phaser.Class ({
           this.sarsCreate1();
           this.var += 1;
         }
+      }
+
+      if(gameState.control.gamma === 4){
+        this.specialSwitch.setTexture('activate');
       }
 
       this.updateScore()
