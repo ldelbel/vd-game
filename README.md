@@ -43,7 +43,7 @@ Virus Defender is a game where you control a lymphocyte B cell, and your goal is
 
 This game is inspired on the fight we're having against SARS-CoV-2.
 
-  ![screenshot](screenshot.png) 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![screenshot](screenshot.gif) 
 
 The game comes with a Tutorial to help newcomers understand how it works.
 
