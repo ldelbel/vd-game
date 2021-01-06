@@ -1,24 +1,23 @@
-import 'phaser';
-import { GameScene } from './scenes/gamescene';
-import 'phaser3-weapon-plugin/dist/WeaponPlugin.js'
+import Phaser from 'phaser';
+import config from './config/config';
+import 'phaser3-weapon-plugin/dist/WeaponPlugin';
 
-const config = {
-  type: Phaser.AUTO,
-  scale: {
-    mode: Phaser.Scale.FIT,
-    parent: 'phaser-example',
-    autoCenter: Phaser.Scale.CENTER_BOTH,
-    width: 1100,
-    height: 600
-  },
-  physics: {
-    default: 'arcade',
-    arcade: {
-      gravity: { x: -200 },
-      enableBody: true,
-    }
-  },
-  scene: GameScene
-};
+const hide = document.getElementById('hide');
+const name = document.getElementById('name');
+const submit = document.getElementById('submit');
+const body = document.getElementById('body');
 
-const game = new Phaser.Game(config);
+if (!localStorage.getItem('playerName')) {
+  submit.onclick = () => {
+    localStorage.setItem('playerName', name.value);
+    hide.style.display = 'none';
+    body.classList.remove('center');
+    body.style.background = 'black';
+    const game = new Phaser.Game(config);
+  };
+} else {
+  body.classList.remove('center');
+  body.style.background = 'black';
+  hide.style.display = 'none';
+  const game = new Phaser.Game(config);
+}

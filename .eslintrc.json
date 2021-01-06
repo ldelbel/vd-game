@@ -14,7 +14,13 @@
     "no-shadow": "off",
     "no-param-reassign": "off",
     "eol-last": "off",
-    "arrow-parens": "off"
+    "arrow-parens": "off",
+    "no-unused-vars": "off",
+    "no-underscore-dangle": "off",
+    "max-len": "off",
+    "consistent-return": "off",
+    "no-undef": "off",
+    "import/no-unresolved": "off"
   },
   "ignorePatterns": [
     "dist/",
