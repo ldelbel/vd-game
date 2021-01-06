@@ -43,14 +43,54 @@ Virus Defender is a game where you control a lymphocyte B cell, and your goal is
 
 This game is inspired on the fight we're having against SARS-CoV-2.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![screenshot](screenshot.gif) 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![screenshot](screenshot.gif) 
 
-The game comes with a Tutorial to help newcomers understand how it works.
 
+## How to Play <a name = "ldl"></a>
+
+The game comes with a Tutorial to help newcomers understand how to play.
 
 ## Live Demo Link <a name = "ldl"></a>
 
 [Play this Fantastic Game Here](https://virus-defender.netlify.app/)
+
+## Game Development
+
+### • Ideation
+  
+In the planning phase of the process my main goal was to set the theme, the core idea, and be able to imagine what I wanted it to look and how it would work and feel. I wanted to improve the relevance of this project by adding some context that people could recognize. That's why I decided to make it referencing to this time of pandemics. I had a very clear idea of how I wanted the game, and every step in the way and the extra effort applied in graphics and interface creation was to fulfill that vision.
+
+### • Designing
+
+The designing of the game was one of the most important phases, because I had the goal to make it look and feel just like I imagined originally. I found a very good resource for many of the game assets, which helped a lot (and it is cited in ackowledgements), but there is a lot of content I created myself using Photoshop.
+
+### • Development
+
+Working with Phaser 3 was very interesting and after speding some time learning how it works you start loving it (or at least respect the work behind it). The library is amazing and it is probably one of the best tools for creating games using Javascript, which is by itself a powerful achievement. 
+
+I listed the main features I wanted in my game and went through each one of them following the information on Phaser 3 documentation. Sometimes it got confusing but after a while I became familiarized with the mindset behind the library, which helped me a lot to understand the new information I was constantly dealing with.
+
+The steps of the development process were briefly the following:
+
+- Set the Phaser Environment
+- Start designing the Game Scene:
+  - Create helpers and objects for storing important data
+  - Create the player character and it's features
+  - Create the enemies and their features
+  - Set the relations between player, enemies, bullets, boundaries
+  - Set the variables and rules of the game
+  - Build the interface to handle the variables that interact with the rules of the game
+- Design the other scenes
+- Apply sounds
+- Use API for leaderboard
+- Finishing
+
+I used one side resource for Phaser called WeaponPlugin. 
+
+### • Deployment
+
+The deployment was made very easy by Netlify, which dealt perfectly with the webpack configuration, the yarn setup, and the node packages.
+
 
 ## 🔧 Built with <a name = "with"></a>
 
