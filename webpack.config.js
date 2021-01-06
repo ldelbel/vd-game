@@ -1,35 +1,59 @@
 const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    app: './src/index.js',
+  },
+
   output: {
-    filename: 'main.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'build'),
+    filename: 'app.bundle.js',
   },
-  mode: 'developemnt',
-  devServer: {
-    contentBase: path.join(__dirname, 'dist'),
-  },
-  devtool: 'inline-source-map',
+
   module: {
     rules: [
       {
-        test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
-      },
-      {
-        test: /\.(jpe?g||png||svg||gif)$/i,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[hash:6].[ext]',
-          outputPath: 'images',
-          publicPath: 'images',
-          emitFile: true,
-          esModule: false,
+        test: /\.js$/,
+        include: path.resolve(__dirname, 'src/'),
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+          },
         },
       },
-
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
     ],
   },
 
+  devServer: {
+    contentBase: path.resolve(__dirname, 'build'),
+    open: true,
+  },
+
+  plugins: [
+    new CopyWebpackPlugin(
+      {
+        patterns: [
+          {
+            from: path.resolve(__dirname, 'index.html'),
+            to: path.resolve(__dirname, 'build'),
+          },
+          {
+            from: path.resolve(__dirname, 'assets', '**', '*'),
+            to: path.resolve(__dirname, 'build'),
+          },
+        ],
+      },
+    ),
+    new webpack.DefinePlugin({
+      'typeof CANVAS_RENDERER': JSON.stringify(true),
+      'typeof WEBGL_RENDERER': JSON.stringify(true),
+    }),
+  ],
 };
