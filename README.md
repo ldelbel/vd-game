@@ -1,5 +1,6 @@
 # Javascript Capstone Project - Virus Defender Shooter Game
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/88e4fe65-f294-4db5-ba6b-740000ddb1fa/deploy-status)](https://app.netlify.com/sites/virus-defender/deploys)
 [![View Code](https://img.shields.io/badge/View%20-Code-green)]()
 [![Github Issues](https://img.shields.io/badge/GitHub-Issues-orange)]()
 [![GitHub Pull Requests](https://img.shields.io/badge/GitHub-Pull%20Requests-blue)]()
