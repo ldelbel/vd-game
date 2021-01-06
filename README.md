@@ -7,7 +7,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/ldelbel/vd-game">
-    <img src="./src/assets/logo.png" alt="Logo" width="80" height="80">
+    <img src="assets/logo.png" alt="Logo" width="300">
   </a>
 
   <h2 align="center">Virus Defender</h2>
