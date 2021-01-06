@@ -94,7 +94,7 @@ After installing the dependencies you can start your game running the code below
 $ yarn start
 
 ```
-If your default broswer doesn't open automatically, visit http://localhost/8081 to start the game.
+If your default broswer doesn't open automatically, visit http://localhost/8080 to start the game.
 
 
 ## 🛠 Testing <a name = "testing"></a>
