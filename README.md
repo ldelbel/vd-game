@@ -49,7 +49,7 @@ The game comes with a Tutorial to help newcomers understand how it works.
 
 ## Live Demo Link <a name = "ldl"></a>
 
-[Play this Fantastic Game Here]()
+[Play this Fantastic Game Here](https://virus-defender.netlify.app/)
 
 ## 🔧 Built with <a name = "with"></a>
 
