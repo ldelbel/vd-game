@@ -14,6 +14,7 @@ const GameOver = new Phaser.Class({
   },
 
   create() {
+    gameState.action.resetControl();
     const gameover = this.add.image(550, 300, 'gameover').setScale(0.3);
     const leaderboard = new Button(this, 550, 375, 'leaderboard-btn', 'leaderboard-btn', 'leaderboardscene').setScale(0.3);
     this.displayScore = this.add.text(660, 275, `${gameState.control.score}`, {

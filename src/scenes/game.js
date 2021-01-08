@@ -452,7 +452,9 @@ const GameScene = new Phaser.Class({
 
     this.gameOver = function () {
       this.scene.pause();
-      this.gameSong.pause();
+      if(this.gameSong){
+        this.gameSong.pause();
+      }
       this.scene.launch('gameover');
     };
     this.input.keyboard.on('keydown_P', this.pauseGame, this);

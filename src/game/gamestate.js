@@ -39,6 +39,13 @@ const gameState = {
     updateGammaBar(gammabar) {
       gammabar.displayWidth = 184.5 * (gameState.control.gamma / 4);
     },
+    resetControl() {      
+      gameState.control.glucose = 0,
+      gameState.control.gamma = 0,
+      gameState.control.hostHealth = 500,
+      gameState.control.score = 0,
+      gameState.control.difficulty = 1
+    }
   },
 };
 
